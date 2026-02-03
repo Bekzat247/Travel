@@ -378,7 +378,7 @@ function Details() {
                                     <option className={css.allreviewsOption}>With more stars</option>
 
                                 </select>
-                                <button onClick={() => { setComent(!addComent), setComentContent('') }} style={{ background: addComent ? '#FA541C' : '#212B36' }}>{addComent ? 'Stop writing' : 'Write a Review'}</button>
+                                <button onClick={() => { setComent(!addComent); setComentContent('') }} style={{ background: addComent ? '#FA541C' : '#212B36' }}>{addComent ? 'Stop writing' : 'Write a Review'}</button>
                             </div>
                         </div>
                         {
