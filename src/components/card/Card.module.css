@@ -150,6 +150,10 @@
     line-height: 28px;
     align-self: stretch;
     cursor: pointer;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .wrapper a{
     text-decoration: none;

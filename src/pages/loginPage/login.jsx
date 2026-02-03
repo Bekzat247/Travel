@@ -15,15 +15,13 @@ function Login() {
     const [Avatar, setAvatar] = useState('')
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(name, Avatar, Email);
         const accContent = {
             name :name, 
             Email: Email, 
             Avatar: Avatar
         }
-        console.log(accContent);
         navigate('/')
-        localStorage.setItem('accInfo', accContent)
+        localStorage.setItem('accInfo', JSON.stringify(accContent))
         setAvatar('')
         setEamil('')
         setName('')

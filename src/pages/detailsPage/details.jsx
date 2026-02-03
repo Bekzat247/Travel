@@ -28,10 +28,11 @@ import burgerMenu from '../../components/Header/iconbase (11).svg'
 import darkBurgerMenu from '../../components/Header/iconbase (12).svg'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 import ellipseSvg from './detailsImage/Ellipse.svg'
-import Api from '../Api/Api'
+import Api from '../../Api/Api'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Preloader from '../../components/preloader/preloader'
+import { replaceComentById } from '../../redux/AsuncThunk'
 
 function Details() {
     const [isDarkMode, setDarkMode] = useState(false)
@@ -41,344 +42,369 @@ function Details() {
     const [isLoading1, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [comp, setComp] = useState([])
-    const {cards, isLoading} = useSelector((state) => state)
+    const { cards, isLoading } = useSelector((state) => state)
     const migthCardLike = cards.slice(0, 4) || []
-    const [addComent , setComent] = useState(false)
-
+    const [addComent, setComent] = useState(false)
+    const [liked, setLiked] = useState(false);
+    
     useEffect(() => {
         const fetchData = () => {
-          Api.getHouseById(params.id)
-            .then(resp => {
-              setComp(resp.data)
-            })
-            .finally(setLoading(false))
-            .catch((e) => setError(e))
-        } 
+            Api.getHouseById(params.id)
+                .then(resp => {
+                    setComp(resp.data)
+                })
+                .finally(setLoading(false))
+                .catch((e) => setError(e))
+        }
         fetchData()
-        
-      }, [])
+
+    }, [])
 
     const highlightsInfo = comp.highlights
+    console.log(comp.highlights);
+    console.log(comp.data);
     const [comentContent, setComentContent] = useState('')
-    const handleComentSave = () => {
-        const newContent = {
-            content: comentContent
-        }
-        // dispatch(replaceComentById( {coments: [...comp.coments, newContent], id: params.id}))
-        Api.replaceComentById(params.id, {coments: [...comp.coments, newContent]})
-        
-        setComentContent('')
-        setComent(false)       
-    }
-   
-  if (isLoading1) {
-    return <div>
-        sorry no contnet in this time
-    </div>
-  }
-  if (error){
-    return <div>
-        sorry no content
-    </div>
-  }
+    const handleComentSave = async (e) => {
+        e.preventDefault();
 
-  return (
-    <div className={css.wrapper}>
-        <Header color={'black'} logosvg={logoSvg} background={'#212B36'} secondColor={'white'} loupe={loupe} globus={globus} burgerMenu = {isDarkMode ? burgerMenu : darkBurgerMenu}/>
-        <div className={css.Container}>
-           <BreadCrumbs title={comp.name}/>
+        const newComment = { content: comentContent };
+        await dispatch(
+            replaceComentById({
+                id: comp.id,
+                coments: [...comp.coments, newComment],
+            })
+        );
+        setComp((prev) => ({
+            ...prev,
+            coments: [...prev.coments, newComment],
+        }));
+        setComentContent('');
+        setComent(false);
+    };
+
+    if (isLoading1) {
+        return <div>
+            sorry no contnet in this time
         </div>
-        <section className={css.gallery}>
-           <div className={css.Container}>
-               <img src={comp.image} alt="" />
-               <div>
-                   <img src={comp.image} alt="" />
-                   <img src={comp.image} alt="" />
-                   <img src={comp.image} alt="" />
-                   <img src={comp.image} alt="" />
-               </div>
-           </div>
-        </section>
-        <section className={css.overview}>
-           <div className={css.Container}>
-               <div className={css.overviewText}>
-                   <div className={css.OT1}>
-                       <h1>{comp.name}</h1>
-                       <div>
-                           <button><img src={shareSvg} alt="" /></button>
-                           <button><img src={likeSvg} alt="" /></button>
-                       </div>
-                   </div>
-                   <div className={css.OT2}>
-                       <div>
-                           <img src={starSvg} alt="" />
-                           <p>{comp.review}</p>
-                           <span>{`(${comp.reviewLength} reviews)`}</span>
-                       </div>
-                       <div>
-                           <img src={locationSvg} alt="" />
-                           <p>{comp.country}</p>
-                       </div>
-                       <div>
-                           <img src={comp.avatar} alt="" />
-                           <span>Tour guide by </span>
-                           <p>{comp.by  }</p>
-                       </div>
-                   </div>
-                   <div className={css.OT3}>
-                       <h2>Tour Overview</h2>
-                       <div>
-                           <div>
-                               <div>
-                                   <img src={calendarSvg} alt="" />
-                                   <div>
-                                       <p>Available</p>
-                                       <span>{comp.awailable}</span>
-                                   </div>
-                               </div>
-                               <div>
-                                   <img src={locationSvg} alt="" />
-                                   <div>
-                                       <p>Location</p>
-                                       <span>{comp.location}</span>
-                                   </div>
-                               </div>
-                               <div>
-                                   <img src={clockSvg} alt="" />
-                                   <div>
-                                       <p>Durations</p>
-                                       <span>{comp.days} days {comp.nights} nights</span>
-                                   </div>
-                               </div>
-                           </div>
-                           <div>
-                               <div>
-                                   <img src={userSvg} alt="" />
-                                   <div>
-                                       <p>Contact Name</p>
-                                       <span>{comp.by}</span>
-                                   </div>
-                               </div>
-                               <div>
-                                   <img src={mobileSvg} alt="" />
-                                   <div>
-                                       <p>Contact phone</p>
-                                       <span>{comp.contactNumb}</span>
-                                   </div>
-                               </div>
-                               <div>
-                                   <img src={translateSvg} alt="" />
-                                   <div>
-                                       <p>Languages</p>
-                                       <span>{comp.country2}, {comp.country}</span>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   <div className={css.OT4}>
-                       <h2>Tour Descriptions</h2>
-                       <p>{comp.desc}</p>
-                   </div>
-                   <div className={css.OT5}>
-                       <h2>Tour Highlights</h2>
-                       <ul>
+    }
+    if (error) {
+        return <div>
+            sorry no content
+        </div>
+    }
 
-                        
-                       {
-                        isLoading
-                        ? 
-                        <Preloader/>
-                        :
-                        highlightsInfo?.map((el, index) => (
-                            <li><span>{el}</span></li>
-                        ))
-                        }
-                       </ul>
-                   </div>
-                   <div className={css.OT6}>
-                       <h2>Tour Inclides</h2>
-                       <div>
-                           <div>
-                               <div>
-                                   <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                   <p>Audio guide</p>
-                               </div>
-                               <div>
-                                   <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                   <p>Food and Drinks</p>
-                               </div>
-                               <div>
-                                   <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                   <p>Lunch</p>
-                               </div>
-                                <div>
-                                    <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                    <p>Private Tour</p>
-                                </div>
-                                <div>
-                                    <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                    <p>Special activites</p>
-                                </div>
-                            </div>
+    
+    return (
+        <div className={css.wrapper}>
+            <Header color={'black'} logosvg={logoSvg} background={'#212B36'} secondColor={'white'} loupe={loupe} globus={globus} burgerMenu={isDarkMode ? burgerMenu : darkBurgerMenu} />
+            <div className={css.Container}>
+                <BreadCrumbs title={comp.name} />
+            </div>
+            <section className={css.gallery}>
+                <div className={css.Container}>
+                    <img src={comp.image} alt="" />
+                    <div>
+                        <img src={comp.image} alt="" />
+                        <img src={comp.image} alt="" />
+                        <img src={comp.image} alt="" />
+                        <img src={comp.image} alt="" />
+                    </div>
+                </div>
+            </section>
+            <section className={css.overview}>
+                <div className={css.Container}>
+                    <div className={css.overviewText}>
+                        <div className={css.OT1}>
+                            <h1>{comp.name}</h1>
                             <div>
-                                <div>
-                                    <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                    <p>Entrance fees</p>
-                                </div>
-                                <div>
-                                    <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                    <p>Gratuities</p>
-                                </div>
-                                <div>
-                                    <img src={comp.includess ? checkSvg : check2Svg}alt="" />
-                                    <p>Pick-up and drop off</p>
-                                </div>
-                                <div>
-                                    <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                    <p>Professional guide</p>
-                                </div>
-                                <div>
-                                    <img src={comp.includess ? checkSvg : check2Svg} alt="" />
-                                    <p>Transport by air-conditioned</p>
-                                </div>
-
+                                <button><img src={shareSvg} alt="" /></button>
+                                <button className={`${css.heartButton} ${liked ? css.liked : ''}`}
+                                    onClick={() => setLiked(!liked)}><svg
+                                        className={css.heartIcon}
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                    </svg></button>
                             </div>
                         </div>
-                    </div>
-                    <div className={css.OT7}>
-                        <h2>Tour Programm</h2>
-                        {/* {
-                            comp.tourProgramm.map((el, index)=>{
+                        <div className={css.OT2}>
+                            <div>
+                                <img src={starSvg} alt="" />
+                                <p>{comp.review}</p>
+                                <span>{`(${comp.reviewLength} reviews)`}</span>
+                            </div>
+                            <div>
+                                <img src={locationSvg} alt="" />
+                                <p>{comp.country}</p>
+                            </div>
+                            <div>
+                                <img src={comp.avatar} alt="" />
+                                <span>Tour guide by </span>
+                                <p>{comp.by}</p>
+                            </div>
+                        </div>
+                        <div className={css.OT3}>
+                            <h2>Tour Overview</h2>
+                            <div>
                                 <div>
                                     <div>
-                                        <div></div>
-                                        <span>Day {index}</span>
+                                        <img src={calendarSvg} alt="" />
+                                        <div>
+                                            <p>Available</p>
+                                            <span>{comp.awailable ? 'Instant confirmation' : 'On request'}</span>
+                                        </div>
                                     </div>
-                                    <p>{el}</p>
+                                    <div>
+                                        <img src={locationSvg} alt="" />
+                                        <div>
+                                            <p>Location</p>
+                                            <span>{comp.location}</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img src={clockSvg} alt="" />
+                                        <div>
+                                            <p>Durations</p>
+                                            <span>{comp.days} days {comp.nights} nights</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            })
-                        } */}
-                    </div>
-                    <div className={css.OTBTNS}>
-                        <p>Share:</p>
-                        <button className={css.BTN1}>
-                            <img src={facebookSvg} alt="" />
-                            Facebook
-                        </button>
-                        <button className={css.BTN2}>
-                            <img src={instagramSvg} alt="" />
-                            Instagram
-                        </button>
-                        <button className={css.BTN3}>
-                            <img src={LNSvg} alt="" />
-                            Linkedln
-                        </button>
-                        <button className={css.BTN4}>
-                            <img src={twiterSvg} alt="" />
-                            Twitter
-                        </button>
-
-                    </div>
-                </div>
-                <div className={css.overviewCard}>
-                    <div className={css.OCPrice}>
-                        <div>
-                            <h2>${comp.price}</h2>
-                            <h2>${comp.price}</h2>
-                            <div>
-                                <p>/Tour</p>
+                                <div>
+                                    <div>
+                                        <img src={userSvg} alt="" />
+                                        <div>
+                                            <p>Contact Name</p>
+                                            <span>{comp.by}</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img src={mobileSvg} alt="" />
+                                        <div>
+                                            <p>Contact phone</p>
+                                            <span>{comp.contactNumb}</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img src={translateSvg} alt="" />
+                                        <div>
+                                            <p>Languages</p>
+                                            <span>{comp.country2}, {comp.country}</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <input type="text"  placeholder='Departure day'/>
-                            <input type="text"  placeholder='Guest'/>
+                        <div className={css.OT4}>
+                            <h2>Tour Descriptions</h2>
+                            <p>{comp.desc}</p>
                         </div>
-                        <div>
+                        <div className={css.OT5}>
+                            <h2>Tour Highlights</h2>
+                            <ul>
+
+
+                                {
+                                    isLoading
+                                        ?
+                                        <Preloader />
+                                        :
+                                        highlightsInfo?.map((el, index) => (
+                                            <li key={index}><span>{el}</span></li>
+                                        ))
+                                }
+                            </ul>
+                        </div>
+                        <div className={css.OT6}>
+                            <h2>Tour Inclides</h2>
                             <div>
-                                <p>Service charge</p>
+                                <div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Audio guide</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Food and Drinks</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Lunch</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Private Tour</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Special activites</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Entrance fees</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Gratuities</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Pick-up and drop off</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Professional guide</p>
+                                    </div>
+                                    <div>
+                                        <img src={comp.includess ? checkSvg : check2Svg} alt="" />
+                                        <p>Transport by air-conditioned</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className={css.OT7}>
+                            <h2>Tour Programm</h2>
+
+                            {
+                                comp.tourProgramm?.map((el, index) => {
+                                    <div>
+                                        <div>
+                                            <div></div>
+                                            <span>Day {index}</span>
+                                        </div>
+                                        <p>{el}</p>
+                                    </div>
+                                })
+                            }
+                        </div>
+                        <div className={css.OTBTNS}>
+                            <p>Share:</p>
+                            <button className={css.BTN1}>
+                                <img src={facebookSvg} alt="" />
+                                Facebook
+                            </button>
+                            <button className={css.BTN2}>
+                                <img src={instagramSvg} alt="" />
+                                Instagram
+                            </button>
+                            <button className={css.BTN3}>
+                                <img src={LNSvg} alt="" />
+                                Linkedln
+                            </button>
+                            <button className={css.BTN4}>
+                                <img src={twiterSvg} alt="" />
+                                Twitter
+                            </button>
+
+                        </div>
+                    </div>
+                    <div className={css.overviewCard}>
+                        <div className={css.OCPrice}>
+                            <div>
+                                <h2>${comp.price}</h2>
+                                <h2>${comp.price}</h2>
+                                <div>
+                                    <p>/Tour</p>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="text" placeholder='Departure day' />
+                                <input type="text" placeholder='Guest' />
+                            </div>
+                            <div>
+                                <div>
+                                    <p>Service charge</p>
+                                    <span>${comp.servicePrice}</span>
+                                </div>
+                                <div>
+                                    <p>Discount</p>
+                                    <span>-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={css.OCreserve}>
+                            <div>
+                                <span>Total</span>
                                 <span>${comp.servicePrice}</span>
                             </div>
-                            <div>
-                                <p>Discount</p>
-                                <span>-</span>
-                            </div>
+                            <button onClick={() => { navigate('/checkout/' + comp.id) }}>Reserve</button>
                         </div>
-                    </div>
-                    <div className={css.OCreserve}>
-                        <div>
-                            <span>Total</span>
-                            <span>${comp.servicePrice}</span>
-                        </div>
-                        <button onClick={()=>{navigate('/checkout/'+comp.id)}}>Reserve</button>
                     </div>
                 </div>
-            </div>
-         </section>
-         <section className={css.reviews}>
-            <div className={css.Container}>
-                <div className={css.reviewCard}>
-                    <div>
+            </section>
+            <section className={css.reviews}>
+                <div className={css.Container}>
+                    <div className={css.reviewCard}>
                         <div>
-                            <div><img src={comp.avatar} alt="" /></div>
                             <div>
-                                <img src={checkMarkSvg} alt="" />
+                                <div><img src={comp.avatar} alt="" /></div>
+                                <div>
+                                    <img src={checkMarkSvg} alt="" />
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <img src={starSvg} alt="" />
-                            <span>{comp.review}</span>
                             <div>
-                                <p>{`(${comp.reviewLength} reviews)`}</p>
-                            </div>
-                            
-                        </div>
-                        <p>{comp.desc}</p>
-                    </div>
-                    <div>
-                        <button><img src={facebookSvg} alt="" /></button>
-                        <button><img src={instagramSvg} alt="" /></button>
-                        <button><img src={LNSvg} alt="" /></button>
-                        <button><img src={twiterSvg} alt="" /></button>
+                                <img src={starSvg} alt="" />
+                                <span>{comp.review}</span>
+                                <div>
+                                    <p>{`(${comp.reviewLength} reviews)`}</p>
+                                </div>
 
-                    </div>
-                    <div>
-                        <p>Member since {comp.data}</p>
-                        <button><span>Contact Your Guide</span></button>
-                    </div>
-                </div>
-                <div className={css.allreviews}>
-                    <div>
-                        <h2>{isLoading ? 0 : comp.coments?.length} Reviews</h2>
+                            </div>
+                            <p>{comp.desc}</p>
+                        </div>
                         <div>
-                            <select>
-                                <option className={css.allreviewsOption}>Most recent</option>
-                            </select>
-                            <button onClick={()=>{setComent(!addComent)}}>Write a Review</button>
+                            <button><img src={facebookSvg} alt="" /></button>
+                            <button><img src={instagramSvg} alt="" /></button>
+                            <button><img src={LNSvg} alt="" /></button>
+                            <button><img src={twiterSvg} alt="" /></button>
+
+                        </div>
+                        <div>
+                            <p>Member since {comp.data}</p>
+                            <button><span>Contact Your Guide</span></button>
                         </div>
                     </div>
-                    {
-                        addComent
-                        ?
-                        <div className={css.comentInput}>
-                            <input type="text" placeholder='Your coment...' value={comentContent} onChange={(e)=>{setComentContent(e.target.value)}}/>
-                            <button onClick={handleComentSave}>Submit</button>
+                    <div className={css.allreviews}>
+                        <div>
+                            <h2>{isLoading ? 0 : comp.coments?.length} Reviews</h2>
+                            <div>
+                                <select>
+                                    <option className={css.allreviewsOption}>Most recent</option>
+                                    <option className={css.allreviewsOption}>New ones first</option>
+                                    <option className={css.allreviewsOption}>By relevance</option>
+                                    <option className={css.allreviewsOption}>With more stars</option>
+
+                                </select>
+                                <button onClick={() => { setComent(!addComent), setComentContent('') }} style={{ background: addComent ? '#FA541C' : '#212B36' }}>{addComent ? 'Stop writing' : 'Write a Review'}</button>
+                            </div>
                         </div>
-                        :
-                        null
-                    }   
-                    <div className={css.comentsWrapper}>
                         {
-                            isLoading
-                            ? 
-                            <Preloader/>
-                            :
-                            comp.coments?.map((el) => (
-                                <div className={css.reviewComment}>
-                                    <img src={comp.avatar} alt="" />
-                                    <div className={css.comentTextCont} >
-                                        <div>
-                                                <h4>Kathryn Murphy</h4>
+                            addComent
+                                ?
+                                <form className={css.comentInput}>
+                                    <input type="text" placeholder='Your coment...' value={comentContent} onChange={(e) => { setComentContent(e.target.value) }} />
+                                    <button onClick={handleComentSave}>Submit</button>
+                                </form>
+                                :
+                                null
+                        }
+                        <div className={css.comentsWrapper}>
+
+
+                            {
+                                isLoading
+                                    ?
+                                    <Preloader />
+                                    :
+                                    comp.coments?.map((el, index) => (
+                                        <div className={css.reviewComment} key={index}>
+                                            <img src={comp.avatar} alt="" />
+                                            <div className={css.comentTextCont} >
+                                                <div>
+                                                    <h4>Kathryn Murphy</h4>
                                                     <div>
                                                         <img src={starSvg} alt="" />
                                                         <img src={starSvg} alt="" />
@@ -386,54 +412,54 @@ function Details() {
                                                         <img src={starSvg} alt="" />
                                                         <img src={starSvg} alt="" />
                                                     </div>
+                                                </div>
+                                                <span>09 Mar 2020</span>
+                                                <p>{el.content}</p>
+                                                <div className={css.comentTextContBtn}>
+                                                    <button>Helpful</button>
+                                                    <img src={ellipseSvg} alt="" />
+                                                    <button>Reply</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <span>09 Mar 2020</span>
-                                        <p>{el.content}</p>
-                                        <div className={css.comentTextContBtn}>
-                                                <button>Helpful</button>
-                                                <img src={ellipseSvg} alt="" />
-                                                <button>Reply</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                    ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className={css.mightLike}>
+                <div>
+                    <h1>You might Like</h1>
+                    <button onClick={() => { navigate('/list') }}>View all <img src={arrowSvg} alt="" /></button>
+                </div>
+                <div className={css.cards}>
+                    {
+                        isLoading
+                            ?
+                            <Preloader />
+
+                            :
+                            migthCardLike.map((el, index) => (
+                                <Card
+                                    key={el.id + index}
+                                    title={el.name}
+                                    country={el.country}
+                                    days={el.days}
+                                    nights={el.nights}
+                                    review={el.review}
+                                    image={el.image}
+                                    id={el.id}
+                                    price={el.price}
+                                />
                             ))
-                        }
-                   </div>
-               </div>
-           </div>
-        </section>
-        <section className={css.mightLike}>
-           <div>
-               <h1>You might Like</h1>
-               <button onClick={()=>{navigate('/list')}}>View all <img src={arrowSvg} alt="" /></button>
-           </div>
-           <div className={css.cards}>
-               {
-                isLoading
-                ?
-                <Preloader/>
-                
-                :
-                migthCardLike.map((el, index) => (
-                    <Card
-                      key={el.id + index}
-                      title={el.name}
-                      country={el.country}
-                      days={el.days}
-                      nights={el.nights}
-                      review={el.review}
-                      image={el.image}
-                      id={el.id}
-                      price={el.price}
-                    />
-                ))
-               }
-           </div>
-        </section>
-        <NewSteller/>
-        <Footer/>
-    </div>
-  )
+                    }
+                </div>
+            </section>
+            <NewSteller />
+            <Footer />
+        </div>
+    )
 }
 
 export default Details

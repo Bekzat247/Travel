@@ -59,6 +59,8 @@
     align-items: center;
     align-self: stretch;
 }
+
+
 .OT1 h1{
     color:  #212B36;
     text-align: center;
@@ -82,6 +84,55 @@
     background: none;
     border: none;
     cursor: pointer;
+}
+.heartButton {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2); /* Легкий фон, чтобы кнопку было видно на фото */
+    backdrop-filter: blur(4px); /* Эффект стекла */
+    border-radius: 50%; /* Делаем кнопку круглой */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* Эффект при наведении */
+.heartButton:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Анимация при клике */
+.heartButton:active {
+    transform: scale(0.9);
+}
+
+/* Стили для иконки внутри */
+.heartIcon {
+    width: 20px;
+    height: 20px;
+    fill: none; /* Прозрачное внутри по умолчанию */
+    stroke: rgb(135, 135, 135); /* Белый контур */
+    stroke-width: 2px;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+/* Состояние, когда лайк нажат */
+.liked .heartIcon {
+    fill: #FF5A5F; /* Красный цвет лайка */
+    stroke: #FF5A5F;
+    animation: pulse 0.4s linear;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }
 .OT2, 
 .OT2 div{
@@ -558,7 +609,8 @@
     border: none;
     height: 48px;
 }
-.allreviews select {
+.allreviews select ,
+.allreviewsOption{
     display: flex;
     padding: 13px 0px 10px 12px;
     flex-direction: column;
@@ -570,6 +622,9 @@
     font-weight: 400;
     line-height: 26px;
 }
+/* .allreviews select option:checked {
+    background-color: #FAF0E6; /* например светло-оранжевый при выборе */
+/* } */ 
 .allreviews button{
     display: flex;
     padding: 11px 22px;

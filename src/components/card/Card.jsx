@@ -5,7 +5,7 @@ import star2Svg from '../../pages/landingPage/landingImage/featuredImage/ic_star
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { deleteHouses } from '../../pages/redux/AsuncThunk'
+import { deleteHouses } from '../../redux/AsuncThunk'
 
 
 

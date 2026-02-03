@@ -5,12 +5,11 @@ import css from './blogPage.module.css'
 import logoSvg from '../../components/Footer/FooterImage/Logo (1).svg'
 import loupe from '../../images/iconbase (5).svg'
 import globus from '../../images/iconbase (6).svg'
-// import burgerMenu from '../../components/Header/iconbase (11).svg'
 import darkBurgerMenu from '../../components/Header/iconbase (12).svg'
 import BlogCard from '../../components/BlogCard/BlogCard'
 import arrowSvg from '../../pages/landingPage/landingImage/testimonials/iconbase.svg'
 import CardBlogInfo from '../../components/CardBlogInfo/CardBlogInfo'
-import Pagination from '../../components/Pagination/pagination'
+// import Pagination from '../../components/Pagination/pagination'
 import SideBar from '../../components/SideBar/SideBar'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -140,10 +139,10 @@ function BlogPage() {
                         />
                     ))
                     }
-                        <Pagination/>
+                        {/* <Pagination/> */}
                     </div>
                     <div className={css.HLPostDiv}>
-                        <SideBar/>
+                        {/* <SideBar/> */}
                     </div>
                 </div>
             </div>

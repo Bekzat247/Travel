@@ -22,19 +22,14 @@ import { useState } from 'react'
 
 function List() {
   const {cards, isLoading} = useSelector((state) => state)
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItems] = useState(12);
-  const [firstItem , setFirestItem] = useState(0)
-  const totalItems = cards?.length; 
-  console.log(totalItems);
-  const onPageChange = (pageNumber) => {
+  const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  const pageChange = (newFirstPage, newFullPage) => {
-    setItems(newFullPage)
-    setFirestItem(newFirstPage)
-  }
-  // const newCards = cards.slice(itemsPerPage)
+  const [currentPage, setCurrentPage] = useState(1);
+  const maxCard = 12;
+  const lastIndex = currentPage * maxCard;
+  const firstIndex = lastIndex - maxCard;
+  const currentCards = cards?.slice(firstIndex, lastIndex) || [];
   return (
     <div>
         <Header color={'black'} logosvg={logoSvg} background={'#212B36'} secondColor={'white'} loupe={loupe} globus={globus} burgerMenu={darkBurgerMenu}/>
@@ -47,7 +42,7 @@ function List() {
               ? 
               <Preloader/>
               :
-              cards?.map((el, index) => (
+              currentCards?.map((el, index) => (
                 <Card
                   key={el.id + index}
                   title={el.name}
@@ -62,7 +57,7 @@ function List() {
             ))
             }
         </div>
-        <Pagination/>
+        <Pagination maxCard={12} cardsLength={cards.length} onPageChange={handlePageChange}/>
         <NewSteller />
         <Footer />
     </div>

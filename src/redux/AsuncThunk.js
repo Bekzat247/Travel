@@ -25,11 +25,18 @@ export const createHouses = createAsyncThunk(
     }
 )
 
+// export const replaceComentById = createAsyncThunk(
+//     'main/replaceComentById',
+//     async (content) => {
+//         // const res = await Api.replaceComentById(content.id, content.coments)
+//         console.log(content.id);
+//         console.log(content.coments);
+//     }
+// )
 export const replaceComentById = createAsyncThunk(
-    'main/replaceComentById',
-    async (content) => {
-        // const res = await Api.replaceComentById(content.id, content.coments)
-        console.log(content.id);
-        console.log(content.coments);
-    }
-)
+  "main/replaceComentById",
+  async ({ id, coments }) => {
+    const res = await Api.replaceComentById(id, { coments });
+    return res.data; // возвращаем обновлённый объект дома
+  }
+);

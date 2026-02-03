@@ -7,14 +7,26 @@ import loupe from '../../images/iconbase (5).svg'
 import globus from '../../images/iconbase (6).svg'
 import burgerMenu from '../../components/Header/iconbase (11).svg'
 import darkBurgerMenu from '../../components/Header/iconbase (12).svg'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-// import burgerMenu from './iconbase (13).svg'
 
 
 function Header({color, logosvg, background, secondColor, loupe, globus, burgerMenu}) {
   const navigate = useNavigate()
   const [isDarkMode, setDarkMode] = useState(false)
+  const [isTop , setIsTop] = useState(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+      setIsTop(scrollTop === 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <div className={css.wrapper}>
       <div>

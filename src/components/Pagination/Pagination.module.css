@@ -1,49 +1,88 @@
-.prePagntn{
-    display: flex;
-    padding: 80px 0px 120px 0px;
-    flex-direction: column;
-    align-items: center;
+.wrapper {
     width: 100%;
-}
-.pagination{
+    padding: 30px 0 0 0;
+    border-top: 1px solid #daf3f3;
     display: flex;
-    width: 362px;
-    height: 40px;
     justify-content: center;
     align-items: center;
-    gap: 6px;
 }
-.pagination > div, 
-.pagination > button{
+
+.wrapper>div {
     display: flex;
-    width: 40px;
-    height: 40px;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 50px;
-    border: none;
-    background: none;
+}
+
+.wrapper>div>span:first-child::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 6px 0;
+    border-color: #333 transparent transparent transparent;
+}
+
+.wrapper>div>div:first-child,
+.wrapper>div>div:last-child {
+    width: 15px;
+    height: 15px;
+    border-top: 3px solid #00a8ab;
+    border-right: 3px solid #00a8ab;
     cursor: pointer;
 }
-.pagination > button{
-    padding: 10px;
-    background: #fff !important;
 
+.wrapper>div>div:first-child:hover,
+.wrapper>div>div:last-child:hover {
+    border-color: #d83636;
 }
-.pagination > div:hover{
-    background: rgba(250, 84, 28, 0.08);
-    color: #FA541C !important;
+
+button:hover {
+    color: #d83636;
 }
-.pagination > div{
+
+.wrapper>div>div:first-child {
+    transform: rotate(225deg);
+}
+
+.wrapper>div>div:last-child {
+    transform: rotate(45deg);
+}
+
+.wrapper>div ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper>div ul li {
+    list-style: none;
+    padding: 7px 10px;
     text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 28px;
 }
-@media (max-width: 576px){
-    .prePagntn{
-        padding: 0;
-    }
+
+.wrapper>div ul button {
+
+    text-decoration: none;
+    color: #00a8ab;
+    cursor: pointer;
+    padding: 6px 8px;
+    border: none;
+    background: none;
+}
+
+
+
+
+
+
+
+.isClicked {
+    color: #333 !important;
+    border: 1px solid #9e9e9e !important;
+    border-radius: 3px;
+}
+
+.clickedDiv {
+    border-color: #9e9e9e9d;
+    cursor: context-menu;
 }

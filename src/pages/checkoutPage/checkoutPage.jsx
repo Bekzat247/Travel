@@ -16,7 +16,7 @@ import calendarSvg from '../../pages/detailsPage/detailsImage/OverViewTextImage/
 import userSvg from '../../pages/detailsPage/detailsImage/OverViewTextImage/ic_user.svg'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import Api from '../Api/Api'
+import Api from '../../Api/Api'
 
 
 
@@ -29,17 +29,17 @@ function CheckoutPage() {
     const [comp, setComp] = useState([])
     useEffect(() => {
         const fetchData = () => {
-          Api.getHouseById(params.id)
-            .then(resp => {
-              setComp(resp.data)
-              console.log(resp.data);
-            })
-            .finally(setLoading(false))
-            .catch((e) => setError(e))
-        } 
+            Api.getHouseById(params.id)
+                .then(resp => {
+                    setComp(resp.data)
+                    console.log(resp.data);
+                })
+                .catch((e) => setError(e))
+                .finally(setLoading(false))
+        }
         fetchData()
-        
-      }, [])
+
+    }, [])
 
     const navigate = useNavigate()
 
@@ -67,7 +67,7 @@ function CheckoutPage() {
     const handleLastNameShipchange = (e) => {
         setaddresslastNameShip(e.target.value)
     }
-        const [addres1fulladdressShip, setaddres1fulladdressShip] = useState('')
+    const [addres1fulladdressShip, setaddres1fulladdressShip] = useState('')
     const handleaddressShipchange = (e) => {
         setaddres1fulladdressShip(e.target.value)
     }
@@ -78,239 +78,269 @@ function CheckoutPage() {
     const [isChecked, setIsChecked] = useState(false);
 
     const handleSwitchToggle = () => {
-        setIsChecked((prevChecked) => !prevChecked);       
+        setIsChecked((prevChecked) => !prevChecked);
     };
-    const [cardValue, setCardValue] = useState('')
+    const [cardPayPalValue, setPayPalCardValue] = useState('')
+    const [cardVisaValue, setVisaCardValue] = useState('')
+
     const handleAddCard = (e) => {
-        if(e.target.value.length <= 19){
+        if (e.target.value.length <= 19) {
             const value = e.target.value.replace(/\D/g, '');
             const formattedValue = formatWithSpaces(value);
-            setCardValue(formattedValue);
+            {
+                e.target.name == 'cardPayPalNumb'
+                    ?
+                    setPayPalCardValue(formattedValue)
+                    :
+                    setVisaCardValue(formattedValue)
+
+            }
+
         }
     };
     const formatWithSpaces = (value) => {
-        return value.replace(/\B(?=(\d{4})+(?!\d))/g, ' ');
+        return value.replace(/(\d{4})(?=\d)/g, '$1 ');
+
     };
-    const [cardName, setCardName] = useState('')
+    const [cardPayPalName, setPayPalCardName] = useState('')
+    const [cardVisaName, setVisaCardName] = useState('')
+
     const handleCardNameChange = (e) => {
-        setCardName(e.target.value)
+        {
+            e.target.name == 'cardPayPalNumb'
+                ?
+                setPayPalCardName(e.target.value)
+                :
+                setVisaCardName(e.target.value)
+
+        }
     }
-    const [cardNumbValue, setCardNumbValue] = useState('')
+    const [PayPalcardNumbValue, setPayPalCardNumbValue] = useState('')
+    const [VisacardNumbValue, setVisaCardNumbValue] = useState('')
+
     const handleCardNumbChange = (e) => {
-        if(e.target.value.length <= 8){
+        if (e.target.value.length <= 8) {
             const value = e.target.value.replace(/\D/g, '');
             const formattedValue = formatWithDots(value);
-            setCardNumbValue(formattedValue);
+            {
+                e.target.name == 'cardPayPalNumb'
+                    ?
+                    setPayPalCardNumbValue(formattedValue)
+                    :
+                    setVisaCardNumbValue(formattedValue)
+
+            }
         }
     };
     const formatWithDots = (value) => {
         return value.replace(/(\d{2})(?=\d)/g, '$1/');
     };
-    const [CardCVC, setCardCVC] = useState('')
+    const [CardPayPalCVC, setPayPalCardCVC] = useState('')
+    const [CardVisaCVC, setVisaCardCVC] = useState('')
+
     const handleCardCVCChange = (e) => {
-        if(e.target.value.length <=3){
-            setCardCVC(e.target.value)
+        if (e.target.value.length <= 3) {
+            {
+                e.target.name == 'cardPayPalNumb'
+                    ?
+                    setPayPalCardCVC(e.target.value)
+                    :
+                    setVisaCardCVC(e.target.value)
+
+            }
         }
     }
     console.log(comp);
-  if(isLoading1){
-    return <div>
-        no content in there
-    </div>
-  }
-  return (  
-    <div>
-        <Header color={'black'} logosvg={logoSvg} background={'#212B36'} secondColor={'white'} loupe={loupe} globus={globus} burgerMenu = {darkBurgerMenu}/>
-        <section className={css.checkout}>  
-            <div className={css.checkoutText}>  
-                <h1>Confirm and Pay</h1>
-                <div className={css.checkoutTextDiv1}> 
-                    <div className={css.checkoutShippingInfo}>
-                        <div className={css.checkoutEllipse}>1</div> <h2>Shipping Information</h2>
-                    </div>
-                    <p>Billing Address</p>
-                    <div className={css.checkoutInputs}>
-                        <div>
-                            <input type="text" placeholder='First Name' value={address1Name} onChange={handleFirstNamechange}/>
-                            <input type="text" placeholder='Last Name'value={addresslastName} onChange={handleLastNamechange}/>
+    if (isLoading1) {
+        return <div>
+            no content in here
+        </div>
+    }
+    return (
+        <div>
+            <Header color={'black'} logosvg={logoSvg} background={'#212B36'} secondColor={'white'} loupe={loupe} globus={globus} burgerMenu={darkBurgerMenu} />
+            <section className={css.checkout}>
+                <div className={css.checkoutText}>
+                    <h1>Confirm and Pay</h1>
+                    <div className={css.checkoutTextDiv1}>
+                        <div className={css.checkoutShippingInfo}>
+                            <div className={css.checkoutEllipse}>1</div> <h2>Shipping Information</h2>
                         </div>
-                        <input type="text" placeholder='Full Adress' value={addres1fulladdress} onChange={handleaddresschange}/>
-                        <input type="text" placeholder='Full Adress 2 (optional)'value={address1fulladdress2} onChange={handleaddress2change}/>
-                    </div>
-                </div>
-                <div> 
-                    <div className={css.checkoutAddressSame}>
-                        <p>Shipping Address</p>
-                        <div>
-                            <span>Same as Billing Address</span>
-                            <label className={css.switch}>
-                                <input type="checkbox" onChange={handleSwitchToggle} defaultChecked={isChecked}/>
-                                <span className={css.slider}></span>
-                            </label>
-                        </div>
-                    </div>
-                    <div className={css.checkoutInputs}>
-                        <div>
-                            <input type="text" placeholder='First Name' value={isChecked ? address1Name : address1NameShip} onChange={handleFirstNameShipchange}/>
-                            <input type="text" placeholder='Last Name' value={isChecked ? addresslastName : addresslastNameShip} onChange={handleLastNameShipchange}/>
-                        </div>
-                        <input type="text" placeholder='Full Adress' value={isChecked ? addres1fulladdress : addres1fulladdressShip} onChange={handleaddressShipchange}/>
-                        <input type="text" placeholder='Full Adress 2 (optional)' value={isChecked ? address1fulladdress2 : address1fulladdress2Ship} onChange={handleaddress2Shipchange}/>
-                    </div>
-                </div>
-                <div className={css.checkoutTextDiv}>
-                    <div className={css.checkoutShippingInfo}>
-                        <div className={css.checkoutEllipse}>2</div> <h2>Payment Methods </h2>
-                    </div>
-                    <div className={css.checkoutpaypale}>
-                        <div>
-                            <input type="checkbox" defaultChecked={status1} onClick={() => {setStatus1(!status1)}}/>
-
+                        <p>Billing Address</p>
+                        <div className={css.checkoutInputs}>
                             <div>
-                                <h3>Pay with Paypal</h3>
-                                <span>You will be redirected to PayPal website to complete your purchase securely.</span>
+                                <input type="text" placeholder='First Name' value={address1Name} onChange={handleFirstNamechange} />
+                                <input type="text" placeholder='Last Name' value={addresslastName} onChange={handleLastNamechange} />
                             </div>
-                            <img src={paypalSvg} alt="" />
+                            <input type="text" placeholder='Full Adress' value={addres1fulladdress} onChange={handleaddresschange} />
+                            <input type="text" placeholder='Full Adress 2 (optional)' value={address1fulladdress2} onChange={handleaddress2change} />
                         </div>
-                        {
-                            status1
-                            ?
-                            <div className={css.checkoutForm1}>
-                                <div className={css.checkoutInputDiv}>
-                                    <input type="text" name='cardNumb' placeholder='XXXX XXXX XXXX XXXX' value={cardValue} onChange={handleAddCard}/>
-                                    <label htmlFor="cardNumb">Card Number</label>
-                                </div>
-                                <div className={css.checkoutInputDiv}>
-                                    <input type="text" name='cardNumb' placeholder='John Doe' value={cardName} onChange={handleCardNameChange}/>
-                                    <label htmlFor="cardNumb">Card Holder</label>
-                                </div>
-                                <div className={css.inputWrapper}>
-                                    <div className={css.checkoutInputDiv}>
-                                        <input type="text" name='cardNumb' placeholder='MM/YY' value={cardNumbValue} onChange={handleCardNumbChange}/>
-                                        <label htmlFor="cardNumb">Expiration Date</label>
-                                    </div>
-                                    <div className={css.checkoutInputDiv}>
-                                        <input type="password" name='cardNumb' placeholder='***' value={CardCVC} onChange={handleCardCVCChange}/>
-                                        <label htmlFor="cardNumb">CVC</label>
-                                    </div>
-                                </div>
-                            </div>
-                            :
-                            null
-                        }
                     </div>
                     <div>
-                        <div className={css.checkoutCreditCard}>
-                        <input type="checkbox" name="" id="" defaultChecked={status2} onClick={() => {setStatus2(!status2)}}/>
-
-                            <div className={css.checkoutRadioText}>
-                                <h3>Credit / Debit Card</h3>
-                                <span>We support Mastercard, Visa, Discover and Stripe.</span>
-                            </div>
-                            <div className={css.CCCImg}>
-                                <img src={masterCardSvg} alt="" />
-                                <img src={visaSvg} alt="" />
+                        <div className={css.checkoutAddressSame}>
+                            <p>Shipping Address</p>
+                            <div>
+                                <span>Same as Billing Address</span>
+                                <label className={css.switch}>
+                                    <input type="checkbox" onChange={handleSwitchToggle} defaultChecked={isChecked} />
+                                    <span className={css.slider}></span>
+                                </label>
                             </div>
                         </div>
-                        {
-                            status2
-                            ?
-                            <div className={css.checkoutForm2}>
-                                <div className={css.checkoutInputDiv}>
-                                    <input type="text" name='cardNumb' placeholder='XXXX XXXX XXXX XXXX' value={cardValue} onChange={handleAddCard}/>
-                                    <label htmlFor="cardNumb">Card Number</label>
-                                </div>
-                                <div className={css.checkoutInputDiv}>
-                                    <input type="text" name='cardNumb' placeholder='John Doe' value={cardName} onChange={handleCardNameChange}/>
-                                    <label htmlFor="cardNumb">Card Holder</label>
-                                </div>
-                                <div className={css.inputWrapper}>
-                                    <div className={css.checkoutInputDiv}>
-                                        <input type="text" name='cardNumb' placeholder='MM/YY'  value={cardNumbValue} onChange={handleCardNumbChange}/>
-                                        <label htmlFor="cardNumb">Expiration Date</label>
-                                    </div>
-                                    <div className={css.checkoutInputDiv}>
-                                        <input type="text" name='cardNumb' placeholder='***' value={CardCVC} onChange={handleCardCVCChange}/>
-                                        <label htmlFor="cardNumb">CVC</label>
-                                    </div>
-                                </div>
-                            </div>
-                            :
-                            null
-                        }
-                    </div>
-                </div>
-            </div>
-            <div className={css.checkoutCard}>
-                <div>
-                    <div>
-                        <img src={comp.image} alt="" />
-                    </div>
-                    <div className={css.cardInfo}>
-                        <div>
-                            <h3>{comp.name}</h3>
+                        <div className={css.checkoutInputs}>
                             <div>
-                                <img src={starSvg} alt="" />
-                                <span>{comp.review}</span>
+                                <input type="text" placeholder='First Name' value={isChecked ? address1Name : address1NameShip} onChange={handleFirstNameShipchange} />
+                                <input type="text" placeholder='Last Name' value={isChecked ? addresslastName : addresslastNameShip} onChange={handleLastNameShipchange} />
+                            </div>
+                            <input type="text" placeholder='Full Adress' value={isChecked ? addres1fulladdress : addres1fulladdressShip} onChange={handleaddressShipchange} />
+                            <input type="text" placeholder='Full Adress 2 (optional)' value={isChecked ? address1fulladdress2 : address1fulladdress2Ship} onChange={handleaddress2Shipchange} />
+                        </div>
+                    </div>
+                    <div className={css.checkoutTextDiv}>
+                        <div className={css.checkoutShippingInfo}>
+                            <div className={css.checkoutEllipse}>2</div> <h2>Payment Methods </h2>
+                        </div>
+                        <div className={css.checkoutpaypale} style={status1? {paddingBottom: '224px'} : null}>
+                            <div>
+                                <input type="checkbox" defaultChecked={status1} onClick={() => { setStatus1(!status1) }} />
+
                                 <div>
-                                    <p>{`(${comp.reviewLength} reviews)`}</p>
+                                    <h3>Pay with Paypal</h3>
+                                    <span>You will be redirected to PayPal website to complete your purchase securely.</span>
+                                </div>
+                                <img src={paypalSvg} alt="" />
+                            </div>
+
+                            <div className={css.checkoutForm1} style={status1 ? {top: '35%'} : {top: '30%'}}>
+                                <div className={css.checkoutInputDiv}>
+                                    <input type="text" name='cardPayPalNumb' placeholder='XXXX XXXX XXXX XXXX' value={cardPayPalValue} onChange={handleAddCard} />
+                                    <label htmlFor="cardNumb">Card Number</label>
+                                </div>
+                                <div className={css.checkoutInputDiv}>
+                                    <input type="text" name='cardPayPalNumb' placeholder='John Doe' value={cardPayPalName} onChange={handleCardNameChange} />
+                                    <label htmlFor="cardNumb">Card Holder</label>
+                                </div>
+                                <div className={css.inputWrapper}>
+                                    <div className={css.checkoutInputDiv}>
+                                        <input type="calendar" name='cardPayPalNumb' placeholder='DD/MM/YY' value={PayPalcardNumbValue} onChange={handleCardNumbChange} />
+                                        <label htmlFor="cardNumb">Expiration Date</label>
+                                    </div>
+                                    <div className={css.checkoutInputDiv}>
+                                        <input type="password" name='cardPayPalNumb' placeholder='***' value={CardPayPalCVC} onChange={handleCardCVCChange} />
+                                        <label htmlFor="cardNumb">CVC</label>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-                        <div></div>
-                        <div>
-                            <img src={comp.avatar} alt="" />
-                            <div>
-                                <p>Tour guide by</p>
-                                <span>{comp.by}</span>
+                        <div style={status2? {paddingBottom: '224px'} : null}>
+                            <div className={css.checkoutCreditCard}>
+                                <input type="checkbox" name="" id="" defaultChecked={status2} onClick={() => { setStatus2(!status2) }} />
+
+                                <div className={css.checkoutRadioText}>
+                                    <h3>Credit / Debit Card</h3>
+                                    <span>We support Mastercard, Visa, Discover and Stripe.</span>
+                                </div>
+                                <div className={css.CCCImg}>
+                                    <img src={masterCardSvg} alt="" />
+                                    <img src={visaSvg} alt="" />
+                                </div>
                             </div>
+                            
+                                    <div className={css.checkoutForm2} style={status1 ? {top: '35%'} : {top: '35%'}}>
+                                        <div className={css.checkoutInputDiv}>
+                                            <input type="text" name='cardNumb' placeholder='XXXX XXXX XXXX XXXX' value={cardVisaValue} onChange={handleAddCard} />
+                                            <label htmlFor="cardNumb">Card Number</label>
+                                        </div>
+                                        <div className={css.checkoutInputDiv}>
+                                            <input type="text" name='cardNumb' placeholder='John Doe' value={cardVisaName} onChange={handleCardNameChange} />
+                                            <label htmlFor="cardNumb">Card Holder</label>
+                                        </div>
+                                        <div className={css.inputWrapper}>
+                                            <div className={css.checkoutInputDiv}>
+                                                <input type="text" name='cardNumb' placeholder='DD/MM/YY' value={VisacardNumbValue} onChange={handleCardNumbChange} />
+                                                <label htmlFor="cardNumb">Expiration Date</label>
+                                            </div>
+                                            <div className={css.checkoutInputDiv}>
+                                                <input type="password" name='cardNumb' placeholder='***' value={CardVisaCVC} onChange={handleCardCVCChange} />
+                                                <label htmlFor="cardNumb">CVC</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                         </div>
                     </div>
                 </div>
-                <div className={css.cardDate}>
+                <div className={css.checkoutCard}>
                     <div>
                         <div>
-                            <img src={calendarSvg} alt="" />
-                            <div>
-                                <p>Departure day</p>
-                                <span>{comp.data}</span>
-                            </div>
+                            <img src={comp.image} alt="" />
                         </div>
-                        <div></div>
-                        <div>
-                            <img src={userSvg} alt="" />
+                        <div className={css.cardInfo}>
                             <div>
-                                <p>Guest</p>
-                                <span>{comp.guestLength} Guest</span>
+                                <h3>{comp.name}</h3>
+                                <div>
+                                    <img src={starSvg} alt="" />
+                                    <span>{comp.review}</span>
+                                    <div>
+                                        <p>{`(${comp.reviewLength} reviews)`}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div></div>
+                            <div>
+                                <img src={comp.avatar} alt="" />
+                                <div>
+                                    <p>Tour guide by</p>
+                                    <span>{comp.by}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div className={css.cardDate}>
+                        <div>
+                            <div>
+                                <img src={calendarSvg} alt="" />
+                                <div>
+                                    <p>Departure day</p>
+                                    <span>{comp.data}</span>
+                                </div>
+                            </div>
+                            <div></div>
+                            <div>
+                                <img src={userSvg} alt="" />
+                                <div>
+                                    <p>Guest</p>
+                                    <span>{comp.guestLength} Guest</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span>Service charge</span>
+                                <p>{comp.servicePrice}$</p>
+                            </div>
+                            <div>
+                                <span>Discount</span>
+                                <p>-</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={css.cardPrice}>
                         <div>
                             <span>Service charge</span>
                             <p>{comp.servicePrice}$</p>
                         </div>
-                        <div>
-                            <span>Discount</span>
-                            <p>-</p>
-                        </div>
+                        <button onClick={() => { navigate(`/checkout/${comp.id}/compleated/${comp.id}`) }}>Complete Booking</button>
+
                     </div>
                 </div>
-                <div className={css.cardPrice}>
-                    <div>
-                        <span>Service charge</span>
-                        <p>{comp.servicePrice}$</p>
-                    </div>
-                    <button onClick={()=>{navigate(`/checkout/${comp.id}/compleated/${comp.id}`)}}>Complete Booking</button>
-
-                </div>
-            </div>
 
 
-        </section>
-        <Footer/>
-    </div>
-  )
+            </section>
+            <Footer />
+        </div>
+    )
 }
 
 export default CheckoutPage

@@ -10,7 +10,7 @@ import BlogDetails from './pages/BlogDetails/BlogDetails';
 import AboutUsPage from './pages/aboutUsPage/aboutUsPage';
 import ContactPage from './pages/ContactPage/ContactPage';
 import { useDispatch } from 'react-redux';
-import { fetchHouses } from './pages/redux/AsuncThunk';
+import { fetchHouses } from './redux/AsuncThunk';
 import { useEffect } from 'react';
 import Login from './pages/loginPage/login';
 

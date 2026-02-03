@@ -24,7 +24,7 @@ import { useSelector } from 'react-redux'
 import Preloader from '../../components/preloader/preloader'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import Api from '../Api/Api'
+import Api from '../../Api/Api'
 
 
 

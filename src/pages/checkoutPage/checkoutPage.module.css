@@ -179,6 +179,9 @@
 .switch input:checked + .slider:before {
     transform: translateX(13px);
   }
+.checkoutpaypale{
+    overflow: hidden;
+}
 .checkoutpaypale > div:nth-child(1) > input,
 .checkoutCreditCard input{
     width: 24px;
@@ -190,7 +193,8 @@
 .radioInputs > input:nth-child(1){
     margin-bottom: 270%;
 }
-.checkoutpaypale > div:nth-child(1){
+.checkoutpaypale > div:nth-child(1),
+.checkoutCreditCard{
     display: flex;
     width: 100%;
     padding: 24px 20px 24px 8px;
@@ -198,6 +202,7 @@
     gap: 8px;
     border-radius: 12px;
     background:  #FFF;
+    z-index: 1;
 }
 .checkoutText h3{
     font-size: 18px;
@@ -231,14 +236,24 @@
     border: 1px solid  rgba(145, 158, 171, 0.24);
     background: #FFF;
     box-shadow: -24px 24px 72px -8px rgba(145, 158, 171, 0.24);
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    transition: padding-bottom 0.5s ease;
+
+
 }
-.checkoutCreditCard{
+.checkoutpaypale.expanded{
+    height: 300px;
+}
+/* .checkoutCreditCard{
     display: flex;
     padding: 24px 20px 24px 8px;
     align-items: center;
     gap: 8px;
     width: 100%;
-}
+    z-index: 1;
+} */
 .checkoutRadioText{
     display: flex;
     width: 100%;
@@ -260,6 +275,9 @@
     align-items: flex-start;
     gap: 16px;
     align-self: stretch;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
 }
 .checkoutInputDiv{
     width: 100%;

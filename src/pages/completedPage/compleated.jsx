@@ -18,7 +18,7 @@ import btnImgSvg from './compleatedImage/iconbase (14).svg'
 import arrowSvg from '../../pages/listPage/listImage/iconbase (4).svg'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import Api from '../Api/Api'
+import Api from '../../Api/Api'
 
 
 
