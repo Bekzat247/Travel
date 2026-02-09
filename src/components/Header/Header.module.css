@@ -32,6 +32,38 @@
     color: var(--11-text-color-dark-01-text-primary, #FFF);
 
 }
+.userProfile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 25px;
+    cursor: pointer;
+
+
+}
+
+.userAvatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.userName {
+    font-weight: 600;
+    font-size: 14px;
+    color: #ddd;
+}
+.joinBtn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
 .wrapper a span{
     color: #919EAB;
 }
@@ -72,6 +104,42 @@
     background: none;
     height: 24px;
 }
+.navRight {
+    position: relative; /* Чтобы абсолютная форма позиционировалась относительно этого дива */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.searchWrapper {
+    position: absolute;
+    right: 140px; /* Подбери значение, чтобы форма была рядом с лупой */
+    top: 50%;
+    left: -70%;
+    transform: translateY(-50%);
+    z-index: 10;
+    animation: fadeIn 0.3s ease;
+}
+
+.searchForm input {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    width: 200px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+.iconBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-50%) translateX(10px); }
+    to { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
 @media (max-width: 576px){
     .wrapper{
         height: 64px;
@@ -85,7 +153,7 @@
         display: block;
     }
     .wrapper > div:nth-child(1) > a > span , 
-    .wrapper > div:nth-child(1) > a > div{
+    .navLeft div{
         display: none;
     }
     .wrapper > div:nth-child(2) >*{

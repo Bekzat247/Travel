@@ -37,6 +37,6 @@ export const replaceComentById = createAsyncThunk(
   "main/replaceComentById",
   async ({ id, coments }) => {
     const res = await Api.replaceComentById(id, { coments });
-    return res.data; // возвращаем обновлённый объект дома
+    return res.data;
   }
 );

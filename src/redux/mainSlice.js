@@ -13,12 +13,6 @@ const mainSLice = createSlice({
         isTop: false,
     },
     reducers: {
-        incremented: (state) => {
-            state.value +=10
-        },
-        decremented: state => {
-            state.value -= 10
-        },
         setStatusOfFulfiledHouses: (state) => {
             state.statusOfCReatingHouse = 'idle'
         },

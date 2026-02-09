@@ -3,6 +3,8 @@
     background-image: url(./landingImage/OVERLAY.png), url(./landingImage/OVERLAY/OVERLAY.png), url(./landingImage/IMG.png);
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
 }
 .tour, .country{
     display: inline-flex;
@@ -13,10 +15,7 @@
 .tour{
     gap: 40px;
     margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-top: 10%;
 
 }
 .tour a{
@@ -120,10 +119,7 @@
 }
 .filterDiv{
     margin: auto;
-    position: absolute;
-    top: 95%;
-    left: 50%;
-    transform: translate(-50%, -50%);   
+    
 
 }
 .different{

@@ -1,59 +1,119 @@
 import css from './Header.module.css'
-import { Link, useNavigate } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import dotsvg from '../../images/Ellipse.svg'
 import borderSvg from './Divider.svg'
-import logoSvg from '../../components/Footer/FooterImage/Logo (1).svg'
-import loupe from '../../images/iconbase (5).svg'
-import globus from '../../images/iconbase (6).svg'
-import burgerMenu from '../../components/Header/iconbase (11).svg'
-import darkBurgerMenu from '../../components/Header/iconbase (12).svg'
 import { useEffect, useState } from 'react'
 
+function Header({ color, logosvg, background, secondColor, loupe, globus, burgerMenu }) {
+  const navigate = useNavigate();
 
-
-function Header({color, logosvg, background, secondColor, loupe, globus, burgerMenu}) {
-  const navigate = useNavigate()
-  const [isDarkMode, setDarkMode] = useState(false)
-  const [isTop , setIsTop] = useState(false)
+  const [isTop, setIsTop] = useState(false)
+  const [IsSearchOpened, setIsSearchOpened] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("") // Состояние для текста поиска
+  const [user, setUser] = useState(null)
   useEffect(() => {
+    const savedUser = localStorage.getItem('accInfo')
+    if (savedUser) {
+      setUser(JSON.parse(savedUser))
+    }
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
       setIsTop(scrollTop === 0);
     };
-
     window.addEventListener('scroll', handleScroll);
+    const checkUser = () => {
+      const savedUser = localStorage.getItem('accInfo');
+      if (savedUser) {
+        setUser(JSON.parse(savedUser));
+      } else {
+        setUser(null);
+      }
+    };
+
+    // Вызываем при первой загрузке
+    checkUser();
+
+    // Слушаем наше кастомное событие
+    window.addEventListener("userUpdate", checkUser);
+
+    // Слушаем стандартное событие storage (если изменят в другой вкладке)
+    window.addEventListener("storage", checkUser);
 
     return () => {
+      window.removeEventListener("userUpdate", checkUser);
+      window.removeEventListener("storage", checkUser);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  const handleLogout = () => {
+    localStorage.removeItem('accInfo')
+    setUser(null)
+    window.location.reload()
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    console.log("Searching for:", searchQuery);
+    setIsSearchOpened(false);
+  };
+
   return (
     <div className={css.wrapper}>
-      <div>
+      <div className={css.navLeft}>
         <Link to='/'>
-          <img src={logosvg} alt=''/>   
+          <img src={logosvg} alt='' />
         </Link>
         <Link to='/'><span>Home</span></Link>
         <Link to='/list'><span>Components</span></Link>
-        <Link>
-          <div className={css.pages}>
-            <img src={dotsvg} alt=''/>
-            <select name="" id="" style={{color: color}}>
-              <option>Pages</option>
-            </select>
-          </div>
-        </Link>
+        <div className={css.pages}>
+          <img src={dotsvg} alt='' />
+          <select name="" id="" style={{ color: color }}>
+            <option>Pages</option>
+          </select>
+        </div>
         <Link to='/blog'><span>Documentation</span></Link>
       </div>
-      <div>
-        <button>
+
+      <div className={css.navRight}>
+        <button className={css.iconBtn}>
           <img src={burgerMenu} alt="" />
         </button>
-        <Link> <img src={loupe} alt="" /></Link>
+
+        {IsSearchOpened && (
+          <div className={css.searchWrapper}>
+            <form onSubmit={handleSearchSubmit} className={css.searchForm} style={{ transform: IsSearchOpened ? 'transform: translateX(-100px)' : 'transform: translateX(100px)' }}>
+              <input
+                autoFocus
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </form>
+          </div>
+        )}
+
+        <Link onClick={() => setIsSearchOpened(!IsSearchOpened)}>
+          <img src={loupe} alt="search" />
+        </Link>
+
         <Link><img src={globus} alt="" /></Link>
         <img src={borderSvg} alt="" />
-        <Link to={'/login'} style={{color: color}}>Login</Link>
-        <Link to={'/login'}><button style={{background: background, color:secondColor}}  >Join Us</button></Link>
+        {user ? (
+          <div className={css.userProfile} onClick={() => navigate('/Profile')} style={{ background: background, color: secondColor }}>
+            <img src={user.avatar} alt="avatar" className={css.userAvatar} title={user.name} />
+            <span className={css.userName}>{user.name.split(' ')[0]}</span>
+          </div>
+        ) : (
+          <>
+            <Link to={'/login'} style={{ color: color }}>Login</Link>
+            <Link to={'/login'}>
+              <button style={{ background: background, color: secondColor }} className={css.joinBtn}>
+                Join Us
+              </button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   )

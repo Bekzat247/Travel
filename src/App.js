@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux';
 import { fetchHouses } from './redux/AsuncThunk';
 import { useEffect } from 'react';
 import Login from './pages/loginPage/login';
+import Profile from './pages/profilePage/profilePage';
+
 
 function App() {
   const dispatch = useDispatch()
@@ -31,6 +33,8 @@ function App() {
       <Route path='/aboutUs' element={<AboutUsPage/>}/>
       <Route path='/contacts' element={<ContactPage/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/profile' element={<Profile/>}/>
+
 
     </Routes>
   );

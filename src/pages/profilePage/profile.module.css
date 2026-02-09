@@ -1,0 +1,284 @@
+.page {
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.profileCard {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+
+.banner {
+    height: 140px;
+    background: linear-gradient(135deg, #212B36 0%, #454F5B 100%);
+}
+
+.content {
+    padding: 0 30px 40px;
+    text-align: center;
+}
+
+.avatarWrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: -60px auto 20px;
+}
+
+.mainAvatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    object-fit: cover;
+    background: #eee;
+}
+
+.avatarOverlay {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #212B36;
+    color: white;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 10px;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.editInput {
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.editInput:focus {
+    border-color: #212B36;
+    box-shadow: 0 0 0 3px rgba(33, 43, 54, 0.1);
+}
+
+.info h1 {
+    font-size: 26px;
+    color: #212B36;
+    margin: 0 0 8px;
+}
+
+.email {
+    color: #637381;
+    margin-bottom: 12px;
+}
+
+.badge {
+    display: inline-block;
+    background: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 25px 0;
+    margin: 25px 0;
+    border-top: 1px solid #f4f6f8;
+    border-bottom: 1px solid #f4f6f8;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statNumber {
+    font-size: 20px;
+    font-weight: 800;
+    color: #212B36;
+}
+
+.statLabel {
+    font-size: 13px;
+    color: #919EAB;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.editBtn, .saveBtn {
+    background: #212B36;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.saveBtn { background: #00AB55; } /* Зеленая для сохранения */
+
+.logoutBtn {
+    background: #fff;
+    color: #FF4842;
+    border: 1px solid #FF4842;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.editBtn:hover, .saveBtn:hover { opacity: 0.8; }
+.logoutBtn:hover { background: #FFF5F5; }
+.hiddenInput {
+    display: none; /* Прячем страшную стандартную кнопку */
+}
+
+.fileLabel {
+    display: block;
+    padding: 12px;
+    background: #f0f2f5;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #454F5B;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+}
+
+.fileLabel:hover {
+    background: #e1e4e8;
+    border-color: #212B36;
+    color: #212B36;
+}
+
+.fileInputWrapper {
+    text-align: center;
+}
+/* Роль админа и табы */
+.roleToggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.tabs button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #919EAB;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.tabs button.activeTab {
+    color: #212B36;
+    border-bottom: 2px solid #212B36;
+}
+
+.adminTab {
+    color: #00AB55 !important;
+}
+
+/* Списки и пустые состояния */
+.tabPanel {
+    min-height: 200px;
+    padding: 20px 0;
+}
+
+.emptyState {
+    color: #919EAB;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.listItem {
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+/* Админ панель */
+.adminSection {
+    text-align: left;
+    background: #f4f6f8;
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.adminSection h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.editTextarea {
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 15px;
+    min-height: 100px;
+    resize: vertical;
+    outline: none;
+}
+
+.createBtnSmall {
+    background: #212B36;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-bottom: 15px;
+    align-self: flex-start;
+}

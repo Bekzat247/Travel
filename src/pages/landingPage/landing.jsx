@@ -1,39 +1,8 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import css from './landing.module.css'
-import clocksvg from './landingImage/ic_clock.svg'
-import starcvg from './landingImage/ic_star.svg'
-import currencysvg from './landingImage/ic_currency.svg'
-import thailand from './landingImage/Ellipse 4.svg'
-import london from './landingImage/Ellipse 4 (2).svg'
-import india from './landingImage/Ellipse 4 (3).svg'
 import pinsvg from './landingImage/ic_pin.svg'
 import Filter from '../../components/filter/Filter'
-import icPlaySvg from './landingImage/ic_play.svg'
-import popularitySvg from './landingImage/ic_popularity.svg'
-import reputationSvg from './landingImage/ic_reputation.svg'
-import securitySvg from './landingImage/ic_secure_payment.svg'
-import tickedSvg from './landingImage/ratinfImage/ic_travel_tickets.svg'
-import bookingSvg from './landingImage/ratinfImage/ic_travel_booking.svg'
-import visitorsSvg from './landingImage/ratinfImage/ic_travel_site_visitors.svg'
-import verifiedHotelsSvg from './landingImage/ratinfImage/ic_travel_verified_hotels.svg'
-import arrowSvg from './landingImage/toursImage/iconbase.svg'
-import qatarPng from './landingImage/toursImage/IMG.png'
-import barbadosPng from './landingImage/toursImage/IMG (2).png'
-import hungaryPng from './landingImage/toursImage/IMG (3).png'
-import netherlandPng from './landingImage/toursImage/IMG (4).png'
-import ugandaPng from './landingImage/toursImage/IMG (5).png'
-import eritreaPng from './landingImage/toursImage/IMG (6).png'
-import gambiaPng from './landingImage/toursImage/IMG (7).png'
-import lebanonPng from './landingImage/toursImage/IMG (8).png'
-import iconQuotesSvg from './landingImage/testCustomersImage/ic_quotes.svg'
-import avatarSvg1 from './landingImage/testCustomersImage/testCustomersAvatars/Ellipse 8.svg'
-import avatarSvg2 from './landingImage/testCustomersImage/testCustomersAvatars/Ellipse 7.svg'
-import avatarSvg3 from './landingImage/testCustomersImage/testCustomersAvatars/Ellipse 7 (2).svg'
-import avatarSvg4 from './landingImage/testCustomersImage/testCustomersAvatars/Ellipse 8 (2).svg'
-import avatarSvg5 from './landingImage/testCustomersImage/testCustomersAvatars/Ellipse 9.svg'
-import avatarSvg6 from './landingImage/testCustomersImage/testCustomersAvatars/Ellipse 9 (2).svg'
-import avatarSvg7 from './landingImage/testCustomersImage/testCustomersAvatars/Ellipse 8 (3).svg'
 import NewSteller from '../../components/newSletter/newSteller'
 import Footer from '../../components/Footer/Footer'
 import Card from '../../components/card/Card'
@@ -42,15 +11,14 @@ import loupe from '../../images/iconbase (7).svg'
 import globus from '../../images/iconbase (8).svg'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import arrowBtn from './landingImage/testimonials/iconbase.svg'
 import burgerMenu from '../../components/Header/iconbase (11).svg'
 import darkBurgerMenu from '../../components/Header/iconbase (12).svg'
 import './landing.css'
 import { useEffect, useState } from 'react'
 import Api from '../../Api/Api'
 import { useSelector } from 'react-redux'
-import landingImage from './landingImage/IMG.png'
 import Preloader from '../../components/preloader/preloader'
+import { Icons } from './landingImage'
 
 
 function Landing() {
@@ -104,15 +72,15 @@ function Landing() {
                     <h1>{content === 'thailand' ? 'Thailand Tour' : content === 'india' ? 'India Tour' : 'London Tour'}</h1>
                     <div>
                         <div>
-                            <img src={clocksvg} alt="" />
+                            <img src={Icons.clocksvg} alt="" />
                             <p>3 days 2 nights</p>
                         </div>
                         <div>
-                            <img src={starcvg} alt="" />
+                            <img src={Icons.starcvg} alt="" />
                             <p>4.8 reviews</p>
                         </div>
                         <div>
-                            <img src={currencysvg} alt="" />
+                            <img src={Icons.currencysvg} alt="" />
                             <p>Starting at $69</p>
                         </div>
                     </div>
@@ -121,7 +89,7 @@ function Landing() {
                 <div className={css.country}>
                     <Link onClick={() => { setContent('thailand') }}>
                         <div>
-                            <img src={thailand} alt="" />
+                            <img src={Icons.thailand} alt="" />
                             <div>
                                 <h3>Thailand</h3>
                                 <div>
@@ -133,7 +101,7 @@ function Landing() {
                     </Link>
                     <Link onClick={() => { setContent('london') }}>
                         <div>
-                            <img src={london} alt="" />
+                            <img src={Icons.london} alt="" />
                             <div>
                                 <h3>London</h3>
                                 <div>
@@ -145,11 +113,11 @@ function Landing() {
                     </Link>
                     <Link onClick={() => { setContent('india') }}>
                         <div>
-                            <img src={india} alt="" />
+                            <img src={Icons.india} alt="" />
                             <div>
                                 <h3>India</h3>
                                 <div>
-                                    <img src={pinsvg} alt="" />
+                                    <img src={Icons.pinsvg} alt="" />
                                     Asia
                                 </div>
                             </div>
@@ -172,28 +140,28 @@ function Landing() {
                         <p>DEVICE</p>
                         <h1>The More Important the Work</h1>
                         <Link onClick={handleRedirect}>
-                            <img src={icPlaySvg} alt="" />
+                            <img src={Icons.icPlaySvg} alt="" />
                             Watch Video
                         </Link>
                     </div>
                 </div>
                 <div className={css.reviews}>
                     <div>
-                        <img src={popularitySvg} alt="" />
+                        <img src={Icons.popularitySvg} alt="" />
                         <div>
                             <h1>Professional Tour Guides</h1>
                             <p>Nunc nonummy metus. Donec elit libero</p>
                         </div>
                     </div>
                     <div>
-                        <img src={reputationSvg} alt="" />
+                        <img src={Icons.reputationSvg} alt="" />
                         <div>
                             <h1>Customer Satisfaction</h1>
                             <p>Nunc nonummy metus. Donec elit libero</p>
                         </div>
                     </div>
                     <div>
-                        <img src={securitySvg} alt="" />
+                        <img src={Icons.securitySvg} alt="" />
                         <div>
                             <h1>Secure Payment</h1>
                             <p>Nunc nonummy metus. Donec elit libero</p>
@@ -208,28 +176,28 @@ function Landing() {
                 </div>
                 <div>
                     <div>
-                        <img src={tickedSvg} alt="" />
+                        <img src={Icons.tickedSvg} alt="" />
                         <div>
                             <h1>130</h1>
                             <p>Air ticked sold</p>
                         </div>
                     </div>
                     <div>
-                        <img src={bookingSvg} alt="" />
+                        <img src={Icons.bookingSvg} alt="" />
                         <div>
                             <h1>196</h1>
                             <p>Tours booked</p>
                         </div>
                     </div>
                     <div>
-                        <img src={visitorsSvg} alt="" />
+                        <img src={Icons.visitorsSvg} alt="" />
                         <div>
                             <h1>10,67k</h1>
                             <p>Site visitors</p>
                         </div>
                     </div>
                     <div>
-                        <img src={verifiedHotelsSvg} alt="" />
+                        <img src={Icons.verifiedHotelsSvg} alt="" />
                         <div>
                             <h1>877</h1>
                             <p>Verified hostels</p>
@@ -316,7 +284,7 @@ function Landing() {
                         <h1>Tours By City</h1>
                         <p>Our Featured Tours can help you find the trip that's perfect for you!</p>
                     </div>
-                    <button onClick={() => { navigate('/list') }}>View All <img src={arrowSvg} alt="" /></button>
+                    <button onClick={() => { navigate('/list') }}>View All <img src={Icons.arrowSvg} alt="" /></button>
                 </div>
                 <div className={css.toursContacts}>
                     {
@@ -426,7 +394,7 @@ function Landing() {
 
                     </div>
                     <button onClick={() => { navigate('/blog') }}>View All
-                        <img src={arrowSvg} alt="" />
+                        <img src={Icons.arrowSvg} alt="" />
                     </button>
                 </div>
             </section>
@@ -435,7 +403,7 @@ function Landing() {
                     <div className={css.testCustomersText}>
                         <h1>What Our Customer Say</h1>
                         <div>
-                            <img src={iconQuotesSvg} alt="" />
+                            <img src={Icons.iconQuotesSvg} alt="" />
                             <div>
                                 <p>Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach.</p>
                             </div>
@@ -446,23 +414,23 @@ function Landing() {
                     </div>
                     <div className={css.testCustomersImg}>
                         <div>
-                            <img src={avatarSvg1} alt="" />
-                            <img src={avatarSvg2} alt="" />
+                            <img src={Icons.avatarSvg1} alt="" />
+                            <img src={Icons.avatarSvg2} alt="" />
                         </div>
                         <div>
-                            <img src={avatarSvg3} alt="" />
-                            <img src={avatarSvg4} alt="" />
-                            <img src={avatarSvg5} alt="" />
+                            <img src={Icons.avatarSvg3} alt="" />
+                            <img src={Icons.avatarSvg4} alt="" />
+                            <img src={Icons.avatarSvg5} alt="" />
                         </div>
                         <div>
-                            <img src={avatarSvg6} alt="" />
-                            <img src={avatarSvg7} alt="" />
+                            <img src={Icons.avatarSvg6} alt="" />
+                            <img src={Icons.avatarSvg7} alt="" />
                         </div>
                     </div>
                 </div>
                 <div className={css.testimonalsButtons}>
-                    <button><img src={arrowBtn} alt="" /></button>
-                    <button><img src={arrowBtn} alt="" /></button>
+                    <button><img src={Icons.arrowBtn} alt="" /></button>
+                    <button><img src={Icons.arrowBtn} alt="" /></button>
 
                 </div>
             </section>

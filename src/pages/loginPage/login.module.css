@@ -28,6 +28,9 @@
     flex-direction: column;
     gap: 24px;
 }
+.inputs label, p{
+    font-family: 'Barlow', sans-serif;;
+}
 .wrapper{
     padding:  50px 144px;
 }
@@ -35,4 +38,77 @@
     font-family: 'Barlow', sans-serif;
     font-size: 48px;
     margin-bottom: 48px;
+}
+.wrapper p{
+    font-size: 22px;
+    margin-bottom: 30px;
+    
+}
+.fileContainer {
+    margin-bottom: 10px;
+}
+
+.fileLabel {
+    display: block;
+    padding: 10px;
+    background: #F4F6F8;
+    border: 2px dashed #DFE3E8;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #637381;
+    transition: 0.3s;
+}
+
+.fileLabel:hover {
+    border-color: #212B36;
+    color: #212B36;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.adminCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 10px;
+    background: #f0fdf4; /* Легкий зеленый фон */
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1e4620;
+}
+
+.adminCheckbox input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.adminCheckbox label {
+    cursor: pointer;
+    font-weight: 500;
+}
+@media (max-width: 576px){
+    .wrapper{
+        padding: 10px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .inputs{
+        align-items: center;
+    }
+    .inputs button, .inputs{
+        width: 320px;
+    }
+    .inputs div{
+        width: 100%;
+    }
+    .wrapper p{
+        text-align: center;
+    }
 }
