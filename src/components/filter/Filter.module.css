@@ -1,21 +1,23 @@
 .wrapper{
     display: flex;
-    width: 1152px;
+    width: 85%;
     padding: 32px;
-    align-items: center;
+    align-items: flex-start ;
     gap: 20px;
     border-radius: 16px;
     backdrop-filter: blur(4px);
+    position: relative;
+    
+    background-color: rgb(214 225 235);
 }
 .wrapper > div {
     border: 1px solid #6373816d;
     width: 1px;
     height: 48px;
 }
-.wrapper a ,
-.wrapper a div{
+.wrapper >a ,
+.wrapper >a> div{
     display: flex;
-    padding: 10px 0px;
     align-items: center;
     gap: 8px;
     flex: 1 0 0;
@@ -28,6 +30,19 @@
     text-decoration: none;
     color: var(--07-grey-600, #637381);
     border-radius: 8px;
+    cursor: default;
+}
+.wrapper >a> div{
+    justify-content: space-between;
+    transition: padding-bottom 0.5s ease;
+
+}
+.wrapper > a{
+    padding: 10px;
+}
+.wrapper > a > div > div{
+    cursor: pointer;
+    display: flex;
 }
 .wrapper button{
     display: flex;
@@ -42,6 +57,27 @@
     border: 1px solid var(--10-transparent-02-secondary-48, rgba(34, 184, 207, 0.48));
     background: var(--02-secondary-03-main, #22B8CF);
     cursor: pointer;
+}
+.stick{
+    width: 80%;
+    height: 1px;
+    border: 1px solid black;
+    border-color: #6373816d;
+    position: absolute;
+    
+}
+.cancelButton{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between;
+    width: 10%;
+    height: 31px;
+    transition: transform 0.5s ease-in-out; 
+    position: relative;
+    
+}
+.filterButton{
+    width: 90%;
 }
 @media (max-width: 1156px){
     .wrapper{

@@ -87,8 +87,8 @@
     font-family: 'Poppins', sans-serif;
 
 }
-.wrapper div:nth-child(2) a:nth-child(2),
-.wrapper div:nth-child(2) a:nth-child(3){
+.loupe,
+.globus{
     height: 20px;
 }
 .wrapper >  a:nth-child(1) img {
@@ -105,7 +105,7 @@
     height: 24px;
 }
 .navRight {
-    position: relative; /* Чтобы абсолютная форма позиционировалась относительно этого дива */
+    position: relative;
     display: flex;
     align-items: center;
     gap: 15px;
@@ -113,12 +113,13 @@
 
 .searchWrapper {
     position: absolute;
-    right: 140px; /* Подбери значение, чтобы форма была рядом с лупой */
+    right: 140px;
     top: 50%;
     left: -70%;
     transform: translateY(-50%);
     z-index: 10;
     animation: fadeIn 0.3s ease;
+    width: 100px;
 }
 
 .searchForm input {
@@ -135,7 +136,18 @@
     border: none;
     cursor: pointer;
 }
+.navLink span {
+    color: #919EAB; 
+    transition: 0.3s;
+}
 
+.navLink:global(.active) span {
+    color: black !important;
+    font-weight: 600;
+}
+.whiteText span {
+    color: white !important;
+}
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-50%) translateX(10px); }
     to { opacity: 1; transform: translateY(-50%) translateX(0); }

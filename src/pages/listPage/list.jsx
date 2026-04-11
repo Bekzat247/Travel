@@ -34,7 +34,7 @@ function List() {
     <div>
         <Header color={'black'} logosvg={logoSvg} background={'#212B36'} secondColor={'white'} loupe={loupe} globus={globus} burgerMenu={darkBurgerMenu}/>
         <div className={css.filterDiv}>
-            <Filter background={'#F9FAFB'}/>
+            <Filter />
         </div>
         <div className={css.cardWrapper}>
             {

@@ -1,7 +1,8 @@
 import css from './Header.module.css'
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { NavLink, Navigate, useNavigate } from "react-router-dom"
 import dotsvg from '../../images/Ellipse.svg'
 import borderSvg from './Divider.svg'
+
 import { useEffect, useState } from 'react'
 
 function Header({ color, logosvg, background, secondColor, loupe, globus, burgerMenu }) {
@@ -30,13 +31,9 @@ function Header({ color, logosvg, background, secondColor, loupe, globus, burger
       }
     };
 
-    // Вызываем при первой загрузке
     checkUser();
 
-    // Слушаем наше кастомное событие
     window.addEventListener("userUpdate", checkUser);
-
-    // Слушаем стандартное событие storage (если изменят в другой вкладке)
     window.addEventListener("storage", checkUser);
 
     return () => {
@@ -56,22 +53,31 @@ function Header({ color, logosvg, background, secondColor, loupe, globus, burger
     console.log("Searching for:", searchQuery);
     setIsSearchOpened(false);
   };
+  const getNavLinkClass = ({ isActive }) => {
+    console.log(isActive);
+    
+  }
 
   return (
     <div className={css.wrapper}>
       <div className={css.navLeft}>
-        <Link to='/'>
+        <NavLink to='/'>
           <img src={logosvg} alt='' />
-        </Link>
-        <Link to='/'><span>Home</span></Link>
-        <Link to='/list'><span>Components</span></Link>
+        </NavLink>
+        <NavLink onClick={getNavLinkClass}
+          to="/"
+          
+        >
+          <span>Home</span>
+        </NavLink>
+        <NavLink to='/list' end className={css.navLink}><span>Components</span></NavLink>
         <div className={css.pages}>
           <img src={dotsvg} alt='' />
           <select name="" id="" style={{ color: color }}>
             <option>Pages</option>
           </select>
         </div>
-        <Link to='/blog'><span>Documentation</span></Link>
+        <NavLink to='/blog' end className={css.navLink}><span>Documentation</span></NavLink>
       </div>
 
       <div className={css.navRight}>
@@ -81,7 +87,7 @@ function Header({ color, logosvg, background, secondColor, loupe, globus, burger
 
         {IsSearchOpened && (
           <div className={css.searchWrapper}>
-            <form onSubmit={handleSearchSubmit} className={css.searchForm} style={{ transform: IsSearchOpened ? 'transform: translateX(-100px)' : 'transform: translateX(100px)' }}>
+            <form onSubmit={handleSearchSubmit} className={css.searchForm} style={{ transform: IsSearchOpened ? 'translateX(-100px)' : 'translateX(100px)' }}>
               <input
                 autoFocus
                 type="text"
@@ -93,11 +99,11 @@ function Header({ color, logosvg, background, secondColor, loupe, globus, burger
           </div>
         )}
 
-        <Link onClick={() => setIsSearchOpened(!IsSearchOpened)}>
+        <NavLink className='' onClick={() => setIsSearchOpened(!IsSearchOpened)}>
           <img src={loupe} alt="search" />
-        </Link>
+        </NavLink>
 
-        <Link><img src={globus} alt="" /></Link>
+        <NavLink className='globus'><img src={globus} alt="" /></NavLink>
         <img src={borderSvg} alt="" />
         {user ? (
           <div className={css.userProfile} onClick={() => navigate('/Profile')} style={{ background: background, color: secondColor }}>
@@ -106,12 +112,12 @@ function Header({ color, logosvg, background, secondColor, loupe, globus, burger
           </div>
         ) : (
           <>
-            <Link to={'/login'} style={{ color: color }}>Login</Link>
-            <Link to={'/login'}>
+            <NavLink to={'/login'} style={{ color: color }}>Login</NavLink>
+            <NavLink to={'/login'}>
               <button style={{ background: background, color: secondColor }} className={css.joinBtn}>
                 Join Us
               </button>
-            </Link>
+            </NavLink>
           </>
         )}
       </div>

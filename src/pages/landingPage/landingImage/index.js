@@ -33,6 +33,8 @@ import avatarSvg6 from './testCustomersImage/testCustomersAvatars/Ellipse 9 (2).
 import avatarSvg7 from './testCustomersImage/testCustomersAvatars/Ellipse 8 (3).svg'
 import landingImage from './IMG.png'
 import arrowBtn from './testimonials/iconbase.svg'
+import bakgroundGradientPhne from './OVERLAY.png'
+import bakgroundPhone from './OVERLAY/OVERLAY.png'
 
 
 export const Icons = {
@@ -70,5 +72,7 @@ export const Icons = {
     avatarSvg6,
     avatarSvg7,
     landingImage,
-    arrowBtn
+    arrowBtn,
+    bakgroundGradientPhne,
+    bakgroundPhone
 };

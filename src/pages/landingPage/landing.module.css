@@ -1,11 +1,13 @@
 .travelHero{
-    height: 880px;
-    background-image: url(./landingImage/OVERLAY.png), url(./landingImage/OVERLAY/OVERLAY.png), url(./landingImage/IMG.png);
+    height: 100%;
+    /* background-image: url(./landingImage/OVERLAY.png), url(./landingImage/OVERLAY/OVERLAY.png), url(./landingImage/IMG.png); */
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
+
 .tour, .country{
     display: inline-flex;
     flex-direction: column;
@@ -13,9 +15,11 @@
 
 }
 .tour{
+    width: 100%;
     gap: 40px;
     margin: auto;
-    margin-top: 10%;
+    margin: 10% 0;
+    position: relative;
 
 }
 .tour a{
@@ -37,7 +41,7 @@
     font-weight: 700;
     line-height: 80px;
 }
-.tour >div{
+.tour >div:first-child{
     gap: 40px;
 }
 .tour > div div, .tour > div{
@@ -70,7 +74,7 @@
     padding: 12px 16px;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 20px !important;
     border-radius: 16px;
 }
 .country a > div:hover{
@@ -97,7 +101,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: 28px;
-    font-family: ''Barlow', sans-serif', sans-serif;
+
     font-family: 'Poppins', sans-serif;
 }
 .country {
@@ -118,8 +122,10 @@
     
 }
 .filterDiv{
-    margin: auto;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3% 10px;
 
 }
 .different{

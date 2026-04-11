@@ -66,6 +66,22 @@ function Landing() {
     return (
         <div>
             <section className={css.travelHero} >
+                <div style={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `
+                    url(${Icons.bakgroundGradientPhne}),
+                    url(${Icons.bakgroundPhone}),
+                    url(${content === 'thailand' ? Icons.landingImage : content === 'india' ? 'https://takearest.ru/wp-content/uploads/2016/03/india-im-1.jpg' : 'https://blog-cdn.aviata.kz/posts/thumbnails/0_8d4d359f7fa71131991167c06335524e5d4525d2.webp'})
+                    `,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    transition: 'background-image 0.5s ease-in-out',
+                    position: "absolute",
+                    zIndex: -6
+                }}>
+
+                </div>
                 <Header color={'white'} logosvg={logoSvg} loupe={loupe} globus={globus} burgerMenu={burgerMenu} />
                 <div className={css.tour}>
                     <Link>NEW TOUR</Link>
@@ -85,8 +101,7 @@ function Landing() {
                         </div>
                     </div>
                     <Link to={content === 'thailand' ? '/details/1' : content === 'india' ? '/details/2' : '/details/3'}><button>Book Now</button></Link>
-                </div>
-                <div className={css.country}>
+                     <div className={css.country}>
                     <Link onClick={() => { setContent('thailand') }}>
                         <div>
                             <img src={Icons.thailand} alt="" />
@@ -125,10 +140,13 @@ function Landing() {
                     </Link>
 
                 </div>
-                <div className={css.filterDiv}>
-                    <Filter className={css.filter} background={'rgba(255, 255, 255, 0.04)'} />
                 </div>
+               
+                
 
+            </section>
+            <section className={css.filterDiv}>
+                    <Filter className={css.filter}  />
             </section>
             <section className={css.different}>
                 <div className={css.difTravel}>
