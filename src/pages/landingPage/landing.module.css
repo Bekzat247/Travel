@@ -47,6 +47,7 @@
 .tour > div div, .tour > div{
     display: flex;
     justify-content: space-between;
+    gap:2px;
 }
 .tour > div div{
     gap: 8px;
@@ -705,6 +706,7 @@
     width: 100%;
     align-items: flex-start;
     background: #161C24;
+    min-height: 965px;
 }
 .PostCarouselWrapper{
     width: 50%;
@@ -725,6 +727,8 @@
     flex-direction: column;
     align-items: flex-end;
     flex: 1 0 0;
+    max-height: 965px;  /* ← добавь это */
+    overflow-y: auto; 
 }
 .latestPostCarousel > div:nth-child(1){
     display: inline-flex;
@@ -952,7 +956,10 @@
 }
 @media (max-width: 576px){
     .country{
-        display: none;
+        display: none !important;
+    }
+    .travelHero{
+        height: 100% !important;
     }
     .tour{
         display: flex;
@@ -1223,5 +1230,10 @@
     }
     .testCustomersText h1{
         font-size: 32px;
+    }
+}
+@media (max-width: 900px){
+    .country{
+        display: none !important;
     }
 }

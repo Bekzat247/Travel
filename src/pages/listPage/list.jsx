@@ -16,20 +16,42 @@ import Pagination from '../../components/Pagination/pagination'
 import { useSelector } from 'react-redux'
 import Preloader from '../../components/preloader/preloader'
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 
 
 
 function List() {
+  const [searchParams] = useSearchParams();
+
+  const filterParams = {
+    destination: searchParams.get('destination') || '',
+    startDate: searchParams.get('startDate') || null,
+    endDate: searchParams.get('endDate') || null,
+    adults: searchParams.get('adults') || 1,
+    children: searchParams.get('children') || 0,
+    infants: searchParams.get('infants') || 0,
+  };
+
   const {cards, isLoading} = useSelector((state) => state)
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   const [currentPage, setCurrentPage] = useState(1);
   const maxCard = 12;
+  const filteredCards = cards?.filter(card => {
+  const matchDestination = filterParams.destination === '' || 
+    card.country.toLowerCase().includes(filterParams.destination.toLowerCase());
+  const matchAdults = filterParams.adults === 1 || 
+    (card.guestLength >= parseInt(filterParams.adults));
+
+  return matchDestination && matchAdults;
+}) || [];
   const lastIndex = currentPage * maxCard;
   const firstIndex = lastIndex - maxCard;
   const currentCards = cards?.slice(firstIndex, lastIndex) || [];
+  console.log(cards);
+  
   return (
     <div>
         <Header color={'black'} logosvg={logoSvg} background={'#212B36'} secondColor={'white'} loupe={loupe} globus={globus} burgerMenu={darkBurgerMenu}/>
@@ -57,7 +79,7 @@ function List() {
             ))
             }
         </div>
-        <Pagination maxCard={12} cardsLength={cards.length} onPageChange={handlePageChange}/>
+        <Pagination maxCard={12} cardsLength={filteredCards.length} onPageChange={handlePageChange}/>
         <NewSteller />
         <Footer />
     </div>

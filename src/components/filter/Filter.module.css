@@ -1,104 +1,438 @@
-.wrapper{
+
+.wrapper {
     display: flex;
     width: 85%;
-    padding: 32px;
-    align-items: flex-start ;
-    gap: 20px;
     border-radius: 16px;
     backdrop-filter: blur(4px);
     position: relative;
-    
     background-color: rgb(214 225 235);
+    transform-style: preserve-3d;
+    z-index: 1;
+    height: 112px;
+    justify-content: center;
+    padding :32px  10px 0 0 ;
 }
-.wrapper > div {
+
+/* Divider между фильтрами */
+.divider {
     border: 1px solid #6373816d;
     width: 1px;
     height: 48px;
 }
-.wrapper >a ,
-.wrapper >a> div{
+
+/* Container для каждого фильтра */
+.filterSection {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
     flex: 1 0 0;
     color: var(--07-grey-600, #637381);
+    text-decoration: none;
+    border-radius: 16px;
+    cursor: default;
+    position: relative;
+    transition: padding-bottom 0.1s ease;
+    background-color: rgb(214 225 235);
+    padding: 0 20px;
+}
+
+/* Основной контент табов */
+.tabMainContent {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.filterButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px;
+    flex: 1;
     text-align: center;
     font-size: 16px;
-    font-style: normal;
     font-weight: 600;
     line-height: 28px;
-    text-decoration: none;
     color: var(--07-grey-600, #637381);
-    border-radius: 8px;
-    cursor: default;
+    transition: all 0.3s ease;
 }
-.wrapper >a> div{
-    justify-content: space-between;
-    transition: padding-bottom 0.5s ease;
 
+.filterButton:hover {
+    opacity: 0.7;
 }
-.wrapper > a{
-    padding: 10px;
+
+.filterButton img {
+    width: 24px;
+    height: 24px;
 }
-.wrapper > a > div > div{
-    cursor: pointer;
+
+/* Кнопка закрытия (X) */
+.cancelButton {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    gap: 4px;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
 }
-.wrapper button{
+
+.stick {
+    width: 16px;
+    height: 2px;
+    background-color: #6373816d;
+    position: absolute;
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+}
+
+/* Скрытый контент (выпадающий блок) */
+.SiteHiddenContent {
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    right: 10px;
+    margin-top: 8px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #6373816d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.SiteHiddenContent input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #DDD;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.SiteHiddenContent input:focus {
+    outline: none;
+    border-color: #22B8CF;
+    box-shadow: 0 0 0 3px rgba(34, 184, 207, 0.1);
+}
+
+/* Гостя инпуты */
+.guestInput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.guestInput label {
+    min-width: 70px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #637381;
+}
+
+.guestInput input {
+    width: 80px;
+    padding: 8px 10px;
+    border: 1px solid #DDD;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.guestInput input:focus {
+    outline: none;
+    border-color: #22B8CF;
+}
+
+/* Стили для DatePicker */
+.datePickerInput {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #E8E8E8;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2F3746;
+    background-color: #FAFBFC;
+    transition: all 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.datePickerInput:hover {
+    border-color: #22B8CF;
+    background-color: #FFF;
+}
+
+.datePickerInput:focus {
+    outline: none;
+    border-color: #22B8CF;
+    background-color: #FFF;
+    box-shadow: 0 0 0 4px rgba(34, 184, 207, 0.15);
+}
+
+.datePickerInput::placeholder {
+    color: #99A3B3;
+}
+
+/* === КАЛЕНДАРЬ === */
+:global(.react-datepicker) {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+    background-color: #FFFFFF;
+    padding: 20px;
+}
+
+:global(.react-datepicker__wrapper) {
+    display: block;
+    width: 100%;
+}
+
+:global(.react-datepicker__input-container) {
+    width: 100%;
+}
+
+/* Заголовок календаря */
+:global(.react-datepicker__header) {
+    background: linear-gradient(135deg, #22B8CF 0%, #1ba3b8 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 15px 0;
+    margin-bottom: 15px;
+    color: white;
+    text-align: center;
+}
+
+:global(.react-datepicker__current-month-label) {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+/* Кнопки навигации (< >) */
+:global(.react-datepicker__navigation) {
+    top: 25px !important;
+    height: 32px;
+    width: 32px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    line-height: 32px;
+    transition: all 0.2s ease;
+    padding: 41px 25px 5px 25px;
+    
+    
+}
+
+
+
+:global(.react-datepicker__navigation-icon::before) {
+    border-color: white;
+    border-width: 2px 2px 0 0;
+    width: 8px;
+    height: 8px;
+}
+
+:global(.react-datepicker__navigation--previous) {
+    left: 15px !important;
+}
+
+:global(.react-datepicker__navigation--next) {
+    right: 15px !important;
+}
+
+/* Дни недели */
+:global(.react-datepicker__day-names) {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+:global(.react-datepicker__day-name) {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+    color: #637381;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Недели */
+:global(.react-datepicker__week) {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+/* Дни календаря */
+:global(.react-datepicker__day) {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 500;
+    color: #2F3746;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0;
+    font-size: 13px;
+}
+
+:global(.react-datepicker__day:hover:not(.react-datepicker__day--disabled)) {
+    background-color: rgba(34, 184, 207, 0.2);
+    color: #22B8CF;
+    font-weight: 600;
+}
+
+/* Выбранный день */
+:global(.react-datepicker__day--selected) {
+    background: linear-gradient(135deg, #22B8CF 0%, #1ba3b8 100%);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(34, 184, 207, 0.3);
+}
+
+/* В диапазоне дат */
+:global(.react-datepicker__day--in-range) {
+    background-color: rgba(34, 184, 207, 0.15);
+    color: #22B8CF;
+    font-weight: 500;
+}
+
+/* День от или до (начало/конец диапазона) */
+:global(.react-datepicker__day--range-start),
+:global(.react-datepicker__day--range-end) {
+    background: linear-gradient(135deg, #22B8CF 0%, #1ba3b8 100%);
+    color: white;
+    font-weight: 600;
+}
+
+/* Отключенные дни */
+:global(.react-datepicker__day--disabled) {
+    color: #DDD;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Дни из других месяцев */
+:global(.react-datepicker__day--outside-month) {
+    color: #DDD;
+    cursor: not-allowed;
+}
+
+/* Сегодня */
+:global(.react-datepicker__day--today) {
+    font-weight: 700;
+    color: #22B8CF;
+}
+
+/* Подсказка при наведении */
+:global(.react-datepicker__day[title]) {
+    position: relative;
+}
+
+/* Кнопка поиска */
+.searchButton {
     display: flex;
     width: 48px;
     height: 48px;
     padding: 6px 12px;
     justify-content: center;
     align-items: center;
-    gap: 8px;
     flex-shrink: 0;
     border-radius: 8px;
     border: 1px solid var(--10-transparent-02-secondary-48, rgba(34, 184, 207, 0.48));
     background: var(--02-secondary-03-main, #22B8CF);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
-.stick{
-    width: 80%;
-    height: 1px;
-    border: 1px solid black;
-    border-color: #6373816d;
-    position: absolute;
-    
+
+.searchButton:hover {
+    background: #1ba3b8;
+    border-color: #1ba3b8;
 }
-.cancelButton{
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between;
-    width: 10%;
-    height: 31px;
-    transition: transform 0.5s ease-in-out; 
-    position: relative;
-    
+
+.searchButton img {
+    width: 24px;
+    height: 24px;
 }
-.filterButton{
-    width: 90%;
+.smallMargin{
+    margin-bottom: 168px;
 }
-@media (max-width: 1156px){
-    .wrapper{
+.smallPadding{
+    padding-bottom: 168px;
+}
+.bigPadding{
+    padding-bottom: 282px;
+}
+/* Мобильная версия */
+@media (max-width: 1156px) {
+    .wrapper {
         display: flex;
         width: 335px;
-        padding: 32px;
+        padding: 16px;
         flex-direction: column;
-        align-items: center;
-        gap: 20px;
+        align-items: stretch;
+        gap: 12px;
+        height: 100%;
     }
-    .wrapper > div{
+
+    .divider {
         display: none;
     }
-    .wrapper > a{
-        display: flex;
-        padding: 10px 0px;
-        align-items: center;
-        gap: 8px;
-        align-self: stretch;
+
+    .filterSection {
+        flex: unset;
+        width: 100%;
     }
-    .wrapper button{
+
+    .searchButton {
+        width: 100%;
+        height: 48px;
+    }
+
+    .SiteHiddenContent {
+        position: static;
+        margin-top: 0;
+        min-width: unset;
+        margin-bottom: 12px;
+    }
+    .filterSection{
+        flex-direction: column;
+    }
+    .smallMargin{
+        margin-bottom: 0;
+    }
+    .smallPadding{
+        padding-bottom: 10px;
+    }
+    .bigPadding{
+        padding-bottom: 20px;
+    }
+    .SiteHiddenContent{
         width: 100%;
     }
 }

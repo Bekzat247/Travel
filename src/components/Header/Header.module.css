@@ -5,16 +5,15 @@
     gap: 20px;
 }
 .wrapper > div:nth-child(1){
-    gap: 48px;
+    gap: 5%;
 }
 .wrapper{
     display: flex;
-    padding: 28px 144px;
+    padding: 4% 10%;
     align-items: center;
     gap: 40px;
     justify-content: space-between;
     width: 100%;
-    /* margin: 28px 144px; */
 }
 .wrapper a,
 .wrapper select{
@@ -152,7 +151,7 @@
     from { opacity: 0; transform: translateY(-50%) translateX(10px); }
     to { opacity: 1; transform: translateY(-50%) translateX(0); }
 }
-@media (max-width: 576px){
+@media (max-width: 856px){
     .wrapper{
         height: 64px;
         padding: 40px 20px;

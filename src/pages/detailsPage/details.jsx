@@ -93,6 +93,7 @@ function Details() {
         </div>
     }
 
+    console.log(comp);
     
     return (
         <div className={css.wrapper}>

@@ -325,7 +325,7 @@ function Landing() {
             <section className={css.latestPost}>
                 <h1>Latest Post</h1>
                 <div className={css.PostCarouselWrapper}>
-                    <Carousel showStatus={false} infiniteLoop={true} emulateTouch={true} showThumbs={false}>
+                    <Carousel showStatus={false} infiniteLoop={true} emulateTouch={false} showThumbs={false} swipeable={false} >
                         <div className={css.latestPostCarousel}>
                             <div>
                                 <div>
