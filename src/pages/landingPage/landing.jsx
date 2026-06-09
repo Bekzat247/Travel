@@ -33,10 +33,10 @@ function Landing() {
     const migthByCityCard = cards.slice(0, 8) || []
     const [isLoadingMC, setLoadingMC] = useState(false)
     const [content, setContent] = useState('thailand')
-    const honkong = cards[0]
-    const ireland = cards[1]
-    const madagascar = cards[2]
-    const vietnam = cards[3]
+    const honkong = cards[0] || {}
+    const ireland = cards[1] || {}
+    const madagascar = cards[2] || {}
+    const vietnam = cards[3] || {}
 
     // const [isLoading1, setLoading] = useState(true)
     // const [error, setError] = useState(null)
@@ -56,13 +56,53 @@ function Landing() {
 
     //   }, [])
 
-    const cardData = [
-        { id: 1, title: 'Карточка 1', content: 'Содержимое карточки 1' },
-        { id: 2, title: 'Карточка 2', content: 'Содержимое карточки 2' },
-        { id: 3, title: 'Карточка 3', content: 'Содержимое карточки 3' },
-        { id: 4, title: 'Карточка 4', content: 'Содержимое карточки 4' },
-
+    const INITIAL_SLIDES = [
+        { id: 1, text: 'Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach. 1', bg: '#f28b82' },
+        { id: 2, text: 'Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach. 2', bg: '#fbbc04' },
+        { id: 3, text: 'Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach. 3', bg: '#fff475' },
+        { id: 4, text: 'Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach. 4', bg: '#ccff90' },
     ];
+    const slides = [
+        INITIAL_SLIDES[INITIAL_SLIDES.length - 1],
+        ...INITIAL_SLIDES,
+        INITIAL_SLIDES[0]
+    ];
+
+    const [currentIndex, setCurrentIndex] = useState(1);
+    const [isTransitioning, setIsTransitioning] = useState(true);
+    const [isMoving, setIsMoving] = useState(false);
+    const handleNext = () => {
+        if (isMoving) return;
+        setIsMoving(true);
+        setIsTransitioning(true);
+        setCurrentIndex((prev) => prev + 1);
+        
+    };
+     const handlePrev = () => {
+        if (isMoving) return;
+        setIsMoving(true);
+        setIsTransitioning(true);
+        setCurrentIndex((prev) => prev - 1);
+    };
+    const handleTransitionEnd = () => {
+        setIsMoving(false);
+
+        if (currentIndex === slides.length - 1) {
+        setIsTransitioning(false);
+        setCurrentIndex(1);        
+        }
+        
+        if (currentIndex === 0) {
+        setIsTransitioning(false); 
+        setCurrentIndex(slides.length - 2);
+        }
+    };
+    const posts = [
+        {id: 1, date: '19 May 2021', title: 'To avoid conflicts it is recommended that business ', description: 'Business stakeholders review wireframes to ensure that requirements and objectives '},
+        {id: 2, date: '19 May 2021', title: 'To avoid conflicts it is recommended that business ', description: 'Business stakeholders review wireframes to ensure that requirements and objectives '},
+        {id: 3, date: '19 May 2021', title: 'To avoid conflicts it is recommended that business ', description: 'Business stakeholders review wireframes to ensure that requirements and objectives '},
+        {id: 4, date: '19 May 2021', title: 'To avoid conflicts it is recommended that business ', description: 'Business stakeholders review wireframes to ensure that requirements and objectives '}
+    ]
     return (
         <div>
             <section className={css.travelHero} >
@@ -84,7 +124,7 @@ function Landing() {
                 </div>
                 <Header color={'white'} logosvg={logoSvg} loupe={loupe} globus={globus} burgerMenu={burgerMenu} />
                 <div className={css.tour}>
-                    <Link>NEW TOUR</Link>
+                    <p>NEW TOUR</p>
                     <h1>{content === 'thailand' ? 'Thailand Tour' : content === 'india' ? 'India Tour' : 'London Tour'}</h1>
                     <div>
                         <div>
@@ -101,52 +141,52 @@ function Landing() {
                         </div>
                     </div>
                     <Link to={content === 'thailand' ? '/details/1' : content === 'india' ? '/details/2' : '/details/3'}><button>Book Now</button></Link>
-                     <div className={css.country}>
-                    <Link onClick={() => { setContent('thailand') }}>
-                        <div>
-                            <img src={Icons.thailand} alt="" />
+                    <div className={css.country}>
+                        <Link onClick={() => { setContent('thailand') }}>
                             <div>
-                                <h3>Thailand</h3>
+                                <img src={Icons.thailand} alt="" />
                                 <div>
-                                    <img src={pinsvg} alt="" />
-                                    Asia
+                                    <h3>Thailand</h3>
+                                    <div>
+                                        <img src={pinsvg} alt="" />
+                                        Asia
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link onClick={() => { setContent('london') }}>
-                        <div>
-                            <img src={Icons.london} alt="" />
+                        </Link>
+                        <Link onClick={() => { setContent('london') }}>
                             <div>
-                                <h3>London</h3>
+                                <img src={Icons.london} alt="" />
                                 <div>
-                                    <img src={pinsvg} alt="" />
-                                    Europa
+                                    <h3>London</h3>
+                                    <div>
+                                        <img src={pinsvg} alt="" />
+                                        Europa
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Link>
-                    <Link onClick={() => { setContent('india') }}>
-                        <div>
-                            <img src={Icons.india} alt="" />
+                        </Link>
+                        <Link onClick={() => { setContent('india') }}>
                             <div>
-                                <h3>India</h3>
+                                <img src={Icons.india} alt="" />
                                 <div>
-                                    <img src={Icons.pinsvg} alt="" />
-                                    Asia
+                                    <h3>India</h3>
+                                    <div>
+                                        <img src={Icons.pinsvg} alt="" />
+                                        Asia
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </Link>
+                        </Link>
 
+                    </div>
                 </div>
-                </div>
-               
-                
+
+
 
             </section>
             <section className={css.filterDiv}>
-                    <Filter className={css.filter}  />
+                <Filter className={css.filter} />
             </section>
             <section className={css.different}>
                 <div className={css.difTravel}>
@@ -157,10 +197,10 @@ function Landing() {
                     <div>
                         <p>DEVICE</p>
                         <h1>The More Important the Work</h1>
-                        <Link onClick={handleRedirect}>
+                        <a href="https://www.youtube.com/watch?v=mI9hE3Sqhkk" target="_blank" rel="noreferrer">
                             <img src={Icons.icPlaySvg} alt="" />
                             Watch Video
-                        </Link>
+                        </a>
                     </div>
                 </div>
                 <div className={css.reviews}>
@@ -326,56 +366,22 @@ function Landing() {
                 <h1>Latest Post</h1>
                 <div className={css.PostCarouselWrapper}>
                     <Carousel showStatus={false} infiniteLoop={true} emulateTouch={false} showThumbs={false} swipeable={false} >
-                        <div className={css.latestPostCarousel}>
-                            <div>
-                                <div>
+                        {
+                            posts.map((post) => (
+                                <div className={css.latestPostCarousel}>
                                     <div>
-                                        <p>19 May 2021</p>
-                                        <h1>To avoid conflicts it is recommended that business </h1>
+                                        <div>
+                                            <div>
+                                                <p>{post.date}</p>
+                                                <h1>{post.title}</h1>
+                                            </div>
+                                            <p>{post.excerpt}</p>
+                                        </div>
+
                                     </div>
-                                    <p> Business stakeholders review wireframes to ensure that requirements and objectives </p>
                                 </div>
-
-                            </div>
-                        </div>
-                        <div className={css.latestPostCarousel}>
-                            <div>
-                                <div>
-                                    <div>
-                                        <p>19 May 2021</p>
-                                        <h1>To avoid conflicts it is recommended that business </h1>
-                                    </div>
-                                    <p> Business stakeholders review wireframes to ensure that requirements and objectives </p>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div className={css.latestPostCarousel}>
-                            <div>
-                                <div>
-                                    <div>
-                                        <p>19 May 2021</p>
-                                        <h1>To avoid conflicts it is recommended that business </h1>
-                                    </div>
-                                    <p> Business stakeholders review wireframes to ensure that requirements and objectives </p>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div className={css.latestPostCarousel}>
-                            <div>
-                                <div>
-                                    <div>
-                                        <p>19 May 2021</p>
-                                        <h1>To avoid conflicts it is recommended that business </h1>
-                                    </div>
-                                    <p> Business stakeholders review wireframes to ensure that requirements and objectives </p>
-                                </div>
-
-                            </div>
-                        </div>
+                            ))
+                        }                        
 
                     </Carousel>
                 </div>
@@ -417,39 +423,61 @@ function Landing() {
                 </div>
             </section>
             <section className={css.testimonals}>
-                <div className={css.testCustomers}>
-                    <div className={css.testCustomersText}>
-                        <h1>What Our Customer Say</h1>
-                        <div>
-                            <img src={Icons.iconQuotesSvg} alt="" />
-                            <div>
-                                <p>Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach.</p>
+                <div className={css.testCustomersWrapper}>
+                    <div
+                        onTransitionEnd={handleTransitionEnd}
+                        style={{
+                            display: 'flex',
+                            transform: `translateX(calc(-100% * ${currentIndex}))`,
+                            transition: isTransitioning ? 'transform 0.4s ease-in-out' : 'none',
+                        }}>
+                        {slides.map((slide, index) => (
+                            <div
+                                key={`${slide.id}-${index}`} // Уникальный ключ для клонов
+                                style={{
+                                    display: 'flex',
+                                    minWidth: '100%',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <div className={css.testCustomersText}>
+                                    <h1>What Our Customer Say</h1>
+                                    <div>
+                                        <img src={Icons.iconQuotesSvg} alt="" />
+                                        <div>
+                                            <p>{slide.text}</p>
+                                        </div>
+                                        <ul>
+                                            <li><span>Robert Fox</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className={css.testCustomersImg}>
+                                    <div>
+                                        <img src={Icons.avatarSvg1} alt="" />
+                                        <img src={Icons.avatarSvg2} alt="" />
+                                    </div>
+                                    <div>
+                                        <img src={Icons.avatarSvg3} alt="" />
+                                        <img src={Icons.avatarSvg4} alt="" />
+                                        <img src={Icons.avatarSvg5} alt="" />
+                                    </div>
+                                    <div>
+                                        <img src={Icons.avatarSvg6} alt="" />
+                                        <img src={Icons.avatarSvg7} alt="" />
+                                    </div>
+                                </div>
                             </div>
-                            <ul>
-                                <li><span>Robert Fox</span></li>
-                            </ul>
-                        </div>
+                        ))}
+
+
                     </div>
-                    <div className={css.testCustomersImg}>
-                        <div>
-                            <img src={Icons.avatarSvg1} alt="" />
-                            <img src={Icons.avatarSvg2} alt="" />
-                        </div>
-                        <div>
-                            <img src={Icons.avatarSvg3} alt="" />
-                            <img src={Icons.avatarSvg4} alt="" />
-                            <img src={Icons.avatarSvg5} alt="" />
-                        </div>
-                        <div>
-                            <img src={Icons.avatarSvg6} alt="" />
-                            <img src={Icons.avatarSvg7} alt="" />
-                        </div>
-                    </div>
+
                 </div>
                 <div className={css.testimonalsButtons}>
-                    <button><img src={Icons.arrowBtn} alt="" /></button>
-                    <button><img src={Icons.arrowBtn} alt="" /></button>
-
+                    <button onClick={handlePrev}><img src={Icons.arrowBtn} alt="" /></button>
+                    <button onClick={handleNext}><img src={Icons.arrowBtn} alt="" /></button>
                 </div>
             </section>
             <NewSteller />

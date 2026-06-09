@@ -19,7 +19,7 @@ function Card({ price, id, image, review, days, nights, country, title}) {
     return (
             <div className={css.wrapper}>
                 <div className={css.fea_card}>
-                    <div className={css.fea_warsaw} style={{backfaceVisibility:0}}>
+                    <div className={css.fea_warsaw} style={{backfaceVisibility:'hidden'}}>
                         <div>   
                             <label>
                                 ${price}
@@ -28,7 +28,7 @@ function Card({ price, id, image, review, days, nights, country, title}) {
                                 <img src={likeSvg} alt="" />
                             </div>
                         </div>
-                        <img src={image} alt="" />
+                        <img src={image} alt="" onClick={()=>{navigate('/details/'+ id)}} />
                     </div>
                     <div className={css.fea_tour}>
                         <div>

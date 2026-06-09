@@ -1,194 +1,280 @@
-.wrapper > div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+/* ===== BASE ===== */
+.iconBtn img {
+  width: 20px;
+  height: 20px;
 }
-.wrapper > div:nth-child(1){
-    gap: 5%;
+.wrapper {
+  display: flex;
+  padding: 4% 10%;
+  align-items: center;
+  gap: 40px;
+  justify-content: space-between;
+  width: 100%;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
-.wrapper{
-    display: flex;
-    padding: 4% 10%;
-    align-items: center;
-    gap: 40px;
-    justify-content: space-between;
-    width: 100%;
+
+.wrapper.scrolled {
+  background: rgba(10, 10, 20, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
+
+/* ===== LEFT NAV ===== */
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 5%;
+}
+
+.logo {
+  height: 27px;
+  width: 120px;
+}
+
+.logo {
+  height: 27px;
+}
+
 .wrapper a,
-.wrapper select{
-    text-decoration: none;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    font-family: 'Poppins', sans-serif;
-    border: none;
-    background: none;
-    outline: none;
-}
-.wrapper a {
-    color: var(--11-text-color-dark-01-text-primary, #FFF);
-
-}
-.userProfile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 5px 10px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 25px;
-    cursor: pointer;
-
-
+.wrapper select {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  background: none;
+  outline: none;
 }
 
-.userAvatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ddd;
+.navLink {
+  text-decoration: none;
 }
 
-.userName {
-    font-weight: 600;
-    font-size: 14px;
-    color: #ddd;
-}
-.joinBtn {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-}
-.wrapper a span{
-    color: #919EAB;
-}
-.pages{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-}
-.wrapper a:first-child{ 
-    height: 20px;
+.navLink span {
+  color: #919EAB;
+  transition: color 0.3s;
 }
 
-.wrapper a button{
-    padding: 6px 16px;
-    background-color: white;
-    border: none; 
-    border-radius: 8px; 
-    cursor: pointer;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+.navLink:hover span {
+  color: #434343 !important;
+}
 
+.navLink.active span {
+  color: #434343 !important;
+  font-weight: 600;
 }
-.loupe,
-.globus{
-    height: 20px;
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.wrapper >  a:nth-child(1) img {
-    height: 27px;
-} 
-.wrapper > div:nth-child(2){
-    width: 25%;
+
+.pages select {
+  color: #919EAB;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
 }
-.wrapper > div:nth-child(2) >button{
-    display: none;
-    border: none;
-    cursor: pointer;
-    background: none;
-    height: 24px;
-}
+
+/* ===== RIGHT NAV ===== */
 .navRight {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.searchWrapper {
-    position: absolute;
-    right: 140px;
-    top: 50%;
-    left: -70%;
-    transform: translateY(-50%);
-    z-index: 10;
-    animation: fadeIn 0.3s ease;
-    width: 100px;
-}
-
-.searchForm input {
-    padding: 8px 15px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    outline: none;
-    width: 200px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
 }
 
 .iconBtn {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-.navLink span {
-    color: #919EAB; 
-    transition: 0.3s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 20px;
+  display: flex;
+  align-items: center;
 }
 
-.navLink:global(.active) span {
-    color: black !important;
-    font-weight: 600;
+.iconBtn img {
+  height: 20px;
 }
-.whiteText span {
-    color: white !important;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-50%) translateX(10px); }
-    to { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-@media (max-width: 856px){
-    .wrapper{
-        height: 64px;
-        padding: 40px 20px;
-        align-items: center;
-        gap: 0 !important;
-        justify-content: space-between;
-        width: 100%;
-    }
-    .wrapper > div:nth-child(2) > button{
-        display: block;
-    }
-    .wrapper > div:nth-child(1) > a > span , 
-    .navLeft div{
-        display: none;
-    }
-    .wrapper > div:nth-child(2) >*{
-        display: none;
-    }
-    .wrapper > div:nth-child(2) > a:nth-child(2){
-        display: block;
-    }
-    .wrapper > div:nth-child(2) > a:nth-child(1) > img:nth-child(2){
-        width: 24px;
-    }
-    .wrapper > div:nth-child(2) > a:nth-child(1) > img:nth-child(1){
-        display: block;
-    }
-    .wrapper > div:nth-child(2) > a:nth-child(1){
-        display: flex;
-        justify-content: space-between;
-        width: 88px;
-    }
-    .wrapper > div:nth-child(2) > a:nth-child(1) img{
-        width: 40px;
-    }
-    .wrapper > div:nth-child(1){
-        gap: 0;
-    }
 
+.divider {
+  height: 24px;
+}
+
+/* ===== SEARCH ===== */
+.searchWrapper {
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.35s ease, opacity 0.35s ease;
+}
+
+.searchWrapper.searchOpen {
+  max-width: 220px;
+  opacity: 1;
+}
+
+.searchForm input {
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  outline: none;
+  width: 200px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.searchForm input::placeholder {
+  color: #919EAB;
+}
+
+/* ===== AUTH ===== */
+.authGroup {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.authGroup a {
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.joinBtn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+.joinBtn:hover {
+  opacity: 0.85;
+}
+
+/* ===== USER PROFILE ===== */
+.userGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px 5px 5px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.userProfile:hover {
+  opacity: 0.85;
+}
+
+.userAvatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.userName {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logoutBtn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  color: #919EAB;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.logoutBtn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== MOBILE MENU ===== */
+.mobileMenu {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px;
+  background: rgba(0, 0, 0, 0.97);
+  backdrop-filter: blur(102px);
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  transform: translateX(110%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px 0 0 12px;
+}
+
+.mobileMenu.mobileMenuOpen {
+  transform: translateX(50%);
+}
+
+.mobileMenu .navLink span {
+  font-size: 16px;
+  color: #919EAB;
+}
+
+.mobileMenu .navLink.active span {
+  color: #fff !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 856px) {
+  .wrapper {
+    height: 64px;
+    padding: 0 20px;
+  }
+
+  /* Скрываем все ссылки в левой панели кроме логотипа */
+  .navLeft > a:not(:first-child),
+  .navLeft .pages {
+    display: none;
+  }
+
+  /* Скрываем большую часть правой панели */
+  .navRight > *:not(.iconBtn:first-child) {
+    display: none;
+  }
+
+  /* Показываем бургер */
+  .navRight .iconBtn:first-child {
+    display: flex;
+  }
+
+  /* Показываем мобильное меню */
+  .mobileMenu {
+    display: flex;
+  }
+}
+
+@media (min-width: 857px) {
+  .navRight .iconBtn:first-child {
+    display: none;
+  }
 }

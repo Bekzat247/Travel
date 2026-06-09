@@ -53,7 +53,7 @@ function Details() {
                 .then(resp => {
                     setComp(resp.data)
                 })
-                .finally(setLoading(false))
+                .finally(()=>setLoading(false))
                 .catch((e) => setError(e))
         }
         fetchData()
@@ -61,8 +61,8 @@ function Details() {
     }, [])
 
     const highlightsInfo = comp.highlights
-    console.log(comp.highlights);
-    console.log(comp.data);
+    console.log(highlightsInfo);
+    
     const [comentContent, setComentContent] = useState('')
     const handleComentSave = async (e) => {
         e.preventDefault();
@@ -270,7 +270,7 @@ function Details() {
                             <h2>Tour Programm</h2>
 
                             {
-                                comp.tourProgramm?.map((el, index) => {
+                                comp.tourProgramm?.map((el, index) => (
                                     <div>
                                         <div>
                                             <div></div>
@@ -278,7 +278,7 @@ function Details() {
                                         </div>
                                         <p>{el}</p>
                                     </div>
-                                })
+                                ))
                             }
                         </div>
                         <div className={css.OTBTNS}>

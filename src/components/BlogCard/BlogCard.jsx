@@ -12,12 +12,12 @@ function BlogCard({desc, title, avatar, by, data, id}) {
         alert('The user page not founded or not created ')
     }
   return (
-    <div className={css.wrapper} >
+    <div className={css.wrapper}  onClick={()=>{navigate(`/blog/details/${id}`)}} >
         <div>
-            <div>
+            <div onClick={()=>{navigate(`/blog/details/${id}`)}}>
                 <i>{data}</i>
             </div>
-            <h2 onClick={()=>{navigate(`/blog/details/${id}`)}}>{title}</h2>
+            <h2  onClick={()=>{navigate(`/blog/details/${id}`)}}>{title}</h2>
             <span>{desc}</span>
         </div>
         <div onClick={handleUserNavigate}>

@@ -1,6 +1,5 @@
 .travelHero{
     height: 100%;
-    /* background-image: url(./landingImage/OVERLAY.png), url(./landingImage/OVERLAY/OVERLAY.png), url(./landingImage/IMG.png); */
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -22,6 +21,7 @@
     position: relative;
 
 }
+.tour p:first-child, 
 .tour a{
     color: var(--02-secondary-03-main, #22B8CF);
     font-family: 'Poppins';
@@ -475,6 +475,7 @@
     gap: 24px;
     align-self: stretch;
     justify-content: space-between;
+
 }
 .toursCard p{
     color: var(--11-text-color-light-02-text-secondary, #637381);
@@ -637,6 +638,7 @@
     flex-direction: column;
     align-items: center;
     gap: 80px;
+    
 }
 .toursText{
     display: flex;
@@ -673,6 +675,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
+    justify-content: center;
 }
 .toursCard{
     display: flex;
@@ -681,7 +684,7 @@
     align-items: center;
     gap: 20px;
     display: flex;
-    width: 23.5%;
+
     padding: 24px;
     align-items: center;
     gap: 20px;
@@ -879,11 +882,9 @@
     align-items: flex-start;
     gap: 80px;
 }
-.testCustomers{
-    display: flex;
+.testCustomersWrapper{
     width: 100%;
-    justify-content: space-between;
-    align-items: center;
+    overflow-x: hidden;
 }
 .testCustomersText{
     display: flex;
@@ -954,10 +955,107 @@
 .testCustomersImg > div:nth-child(3){
     align-items: flex-start;
 }
-@media (max-width: 576px){
-    .country{
-        display: none !important;
+@media (max-width: 1100px){
+    .bottom_cards > div,
+    .top_cards > div{
+        height: 170px;
     }
+    .bottom_cards, .top_cards{
+        flex-direction: column;
+        align-items: center;
+    }
+    .latestPostText{
+        padding: 80px 20px 40px 20px;
+    }
+}
+@media (max-width: 1000px){
+    .different{
+        padding: 64px 20px;
+    }
+    .device{
+        height: 500px;
+    }
+    .device > div{
+        width: 100%;
+        padding: 20px;
+    }
+    .fea_cards{
+        flex-wrap: wrap !important; 
+    }
+    .toursByCity{
+        padding: 64px 20px 120px 20px;
+    }
+}
+@media (max-width: 840px){
+    .top_cards,
+    .bottom_cards{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        width: 100%;
+    }
+    .latestPost{
+        display: flex;
+        width: 100%;
+        padding: 64px 0px;
+        flex-direction: column;
+        align-items: center;
+        gap: 64px;
+        margin-top: 85px;
+    }
+    .latestPost > h1{
+        display: block;
+        margin-left: 20px;
+    }
+    .PostCarouselWrapper{
+        width: 100%;
+    }
+    .latestPostText{
+        display: flex;
+        padding: 0px 20px;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        align-self: stretch;
+    }
+    .latestPostText > div h1{
+        font-size: 18px;
+    }
+    .latestPostText > div{
+        padding: 0 0 64px 0;
+    }
+    .latestPostText > h1{
+        display: none;
+    }
+    .Hongkong, 
+    .Ireland,
+    .madagascar,
+    .vietnam{
+        width: 70% !important;
+        height: 335px !important;
+    }
+    .cards{
+        width: 100%;
+    }
+    .cards h1{
+        font-size: 24px !important;
+    }
+    .destinations{
+        display: flex;
+        width: 100%;
+        padding: 64px 20px;
+        flex-direction: column;
+        align-items: center;
+        gap: 64px;
+    }
+}
+@media (max-width: 1250px){
+    .featured{
+        padding: 20px 35px 30px;
+    }
+}
+@media (max-width: 576px){
     .travelHero{
         height: 100% !important;
     }
@@ -1072,14 +1170,7 @@
     .rating > div:nth-child(2){
         flex-direction: column;
     }
-    .destinations{
-        display: flex;
-        width: 100%;
-        padding: 64px 20px;
-        flex-direction: column;
-        align-items: center;
-        gap: 64px;
-    }
+    
     .des_list{
         display: flex;
         flex-direction: column;
@@ -1098,26 +1189,12 @@
     .des_list span {
         font-weight: 400;
     }
-    .top_cards,
-    .bottom_cards{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 32px;
-        width: 100%;
-    }
+    
     .Hongkong, 
     .Ireland,
     .madagascar,
     .vietnam{
         width: 100% !important;
-        height: 335px;
-    }
-    .cards{
-        width: 100%;
-    }
-    .cards h1{
-        font-size: 24px !important;
     }
     .featured{
         display: flex;
@@ -1147,6 +1224,7 @@
         flex-direction: column;
         align-items: center;
         gap: 64px;
+        
     }
     .toursText{
         display: flex;
@@ -1170,41 +1248,10 @@
     }
     .toursText > button{
         position: absolute;
-        top: 930%;
+        top: 1370%;
     }
-    .latestPost{
-        display: flex;
-        width: 100%;
-        padding: 64px 0px;
-        flex-direction: column;
-        align-items: center;
-        gap: 64px;
-        margin-top: 85px;
-    }
-    .latestPost > h1{
-        display: block;
-        margin-left: 20px;
-    }
-    .PostCarouselWrapper{
-        width: 100%;
-    }
-    .latestPostText{
-        display: flex;
-        padding: 0px 20px;
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-        align-self: stretch;
-    }
-    .latestPostText > div h1{
-        font-size: 18px;
-    }
-    .latestPostText > div{
-        padding: 0 0 64px 0;
-    }
-    .latestPostText > h1{
-        display: none;
-    }
+    
+    
     .testimonals{
         display: flex;
         width: 100%;

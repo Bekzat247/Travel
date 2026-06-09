@@ -49,8 +49,8 @@ function List() {
 }) || [];
   const lastIndex = currentPage * maxCard;
   const firstIndex = lastIndex - maxCard;
-  const currentCards = cards?.slice(firstIndex, lastIndex) || [];
-  console.log(cards);
+  const currentCards = filteredCards?.slice(firstIndex, lastIndex) || [];
+
   
   return (
     <div>

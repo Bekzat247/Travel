@@ -24,8 +24,6 @@ const mainSLice = createSlice({
         builder.addCase(fetchHouses.fulfilled, (state, action) => {
             state.houses = action.payload
             state.isLoading = false
-            console.log(state.houses);
-            console.log(action.payload);
         }),
         // builder.addCase(replaceComentById.fulfilled, (state, action)=>{
         //     state.houses.coments = action.payload.coments
@@ -45,4 +43,4 @@ const mainSLice = createSlice({
 })
 
 
-export const {incremented, decremented,setStatusOfFulfiledHouses } = mainSLice.actions
+export const {setStatusOfFulfiledHouses , setIsTop} = mainSLice.actions

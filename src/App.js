@@ -14,6 +14,7 @@ import { fetchHouses } from './redux/AsuncThunk';
 import { useEffect } from 'react';
 import Login from './pages/loginPage/login';
 import Profile from './pages/profilePage/profilePage';
+import ScrollToTop from './components/ScrollToTop';
 
 
 function App() {
@@ -22,7 +23,9 @@ function App() {
     dispatch(fetchHouses())
   }, [])
   return (
-    <Routes>
+    <>
+      <ScrollToTop />  {/* ← это работает для ВСЕХ Link'ов */}
+      <Routes>
       <Route path='/' element={<Landing/>}/>
       <Route path='/list' element={<List />}/>
       <Route path='/details/:id' element={<Details/>}/>
@@ -34,9 +37,8 @@ function App() {
       <Route path='/contacts' element={<ContactPage/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/profile' element={<Profile/>}/>
-
-
     </Routes>
+    </>
   );
 }
 
